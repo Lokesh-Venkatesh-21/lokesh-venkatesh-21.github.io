@@ -67,12 +67,13 @@
     background:linear-gradient(100deg,#b8760e 0%,#9c5c2e 50%,#5a8c2e 100%);
     -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   }
-  .subtitle {
+  .subtitle,
+  .page-subtitle {
     margin-top:10px; color:var(--text-dim); font-size:13px;
     letter-spacing:0.3px; max-width:680px;
     opacity:0; transform:translateY(12px); animation:fadeUp 0.7s 0.28s forwards;
   }
-  .subtitle .hint { color:var(--muted); }
+  .subtitle .hint, .page-subtitle .hint { color:var(--muted); }
   @keyframes fadeUp { to{opacity:1;transform:translateY(0)} }
 
   /* ── GRID ── */
@@ -355,6 +356,10 @@
   .nav-dot.active { transform:scale(1.4); }
   .nav-dot[data-idx="0"].active{background:var(--c1)} .nav-dot[data-idx="1"].active{background:var(--c2)} .nav-dot[data-idx="2"].active{background:var(--c3)} .nav-dot[data-idx="3"].active{background:var(--c4)}
 
+  /* ── META PILLS ── */
+  .meta-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; opacity:0; animation:fadeUp 0.6s 0.4s forwards; }
+  .meta-pill { font-size:10px; letter-spacing:0.5px; padding:4px 12px; border-radius:20px; color:var(--muted); background:var(--surface2); border:1px solid var(--border); }
+
   /* ── NAV BACK ── */
   .nav-back {
     display:inline-flex; align-items:center; gap:6px;
@@ -432,9 +437,15 @@
       <div class="brand-avatar">LV</div>
     </div>
     <a class="nav-back" href="../index.html">← RAG Index</a>
-    <div class="eyebrow">RAG Architecture Guide</div>
+    <div class="eyebrow">02 — Core Concepts</div>
     <h1>The RAG Stack: <em>From Naive to Agentic</em></h1>
-    <p class="subtitle">RAG (Retrieval-Augmented Generation) grounds LLM (Large Language Model) responses in your own data. Each type trades off complexity, latency, and retrieval accuracy differently. <span class="hint">— Hover nodes for details. Click cards to expand. Hit ▶ to trace the flow.</span></p>
+    <p class="page-subtitle">RAG (Retrieval-Augmented Generation) grounds LLM responses in your own data instead of relying on memorised training knowledge. Four architectures exist — each adding a layer of intelligence and complexity. Naive RAG is the baseline. Hybrid adds keyword precision. Graph follows relationships. Agentic lets the model decide what to retrieve and when. Choose based on your data, latency budget, and how complex your queries are.</p>
+    <div class="meta-row">
+      <span class="meta-pill">15 min read</span>
+      <span class="meta-pill">4 architectures</span>
+      <span class="meta-pill">SVG run traces</span>
+      <span class="meta-pill">Expandable deep-dives</span>
+    </div>
   </header>
 
   <div class="grid">
@@ -1293,7 +1304,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-  
   <!-- PREV/NEXT NAV -->
   <div class="page-nav">
     <a class="page-nav-btn" href="../rag-intro/">
@@ -1307,6 +1317,7 @@ window.addEventListener('DOMContentLoaded', () => {
   </div>
 <script src="shared.js"></script>
   <footer>
+    <div class="footer-note">The right RAG type depends on your data, latency tolerance, and use case.</div>
     <div class="hashtags">#RAG &nbsp;#LLM &nbsp;#GenAI &nbsp;#AIEngineering</div>
   </footer>
 </body>
