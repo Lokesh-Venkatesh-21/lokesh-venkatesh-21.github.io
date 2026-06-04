@@ -3,473 +3,1370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senior Data Scientist Coding Interview — 14-Day Study Guide | Lokesh Venkatesh</title>
+<title>Data Scientist Interview — 14-Day Coding Study Guide | Lokesh Venkatesh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&amp;family=Spline+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0e0e10;
-    --bg-soft:#151517;
-    --card:#161618;
-    --card-hover:#1c1c1f;
-    --line:#26262a;
-    --line-soft:#1f1f22;
-    --text:#ece9e2;
-    --muted:#9a958c;
-    --faint:#6a665e;
-    --accent:#e8a13a;
-    --accent-soft:#f0bd6e;
-    --accent-dim:rgba(232,161,58,.12);
-    --green:#7fae6f;
-    --serif:"Fraunces",Georgia,serif;
-    --sans:"Spline Sans",system-ui,sans-serif;
-    --mono:"JetBrains Mono",monospace;
-    --maxw:1080px;
+    --bg:#fdf8f0;
+    --surface:#fffcf5;
+    --surface2:#faf2e4;
+    --border:#e8d9b8;
+    --border-bright:#ddc99a;
+    --gold:#c8922a;
+    --brown:#9c5c2e;
+    --green:#5a8c2e;
+    --amber:#b8760e;
+    --ink:#1a0e02;
+    --text:#4f3518;
+    --muted:#9a7848;
+    --code:#160b02;
+    --mono:"DM Mono",monospace;
+    --display:"Syne",system-ui,sans-serif;
+    --maxw:1120px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    line-height:1.6;
+    color:var(--ink);
+    font-family:var(--mono);
+    min-height:100vh;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
   }
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(circle,rgba(180,140,60,.11) 1px,transparent 1px);
+    background-size:28px 28px;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     background:
-      radial-gradient(720px 480px at 78% -8%, rgba(232,161,58,.10), transparent 60%),
-      radial-gradient(560px 420px at 8% 4%, rgba(232,161,58,.05), transparent 55%);
+      radial-gradient(620px 420px at 10% -10%,rgba(200,146,42,.12),transparent 64%),
+      radial-gradient(520px 380px at 80% 0%,rgba(90,140,46,.09),transparent 62%);
   }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 34px;position:relative;z-index:1}
   a{color:inherit;text-decoration:none}
-
-  /* ---------- top bar ---------- */
-  header{
-    position:sticky;top:0;z-index:50;
-    backdrop-filter:blur(12px);
-    background:rgba(14,14,16,.72);
-    border-bottom:1px solid var(--line-soft);
-  }
-  .bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:var(--maxw);margin:0 auto}
-  .brand{display:flex;align-items:center;gap:12px}
-  .mono-badge{
-    width:38px;height:38px;border-radius:9px;
-    background:linear-gradient(145deg,var(--accent),#c47e1d);
-    color:#1a1308;display:grid;place-items:center;
-    font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.5px;
-    box-shadow:0 4px 16px rgba(232,161,58,.28);
-  }
-  .brand .who{display:flex;flex-direction:column;line-height:1.15}
-  .brand .who b{font-size:14px;font-weight:600;letter-spacing:.2px}
-  .brand .who span{font-size:11.5px;color:var(--faint);letter-spacing:.4px}
-  .nav-tag{
-    font-size:11px;color:var(--muted);font-family:var(--mono);
-    border:1px solid var(--line);border-radius:100px;padding:6px 14px;
-  }
-
-  /* ---------- hero ---------- */
-  .hero{padding:84px 0 56px}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:9px;
-    font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--accent-soft);
-    border:1px solid var(--line);border-radius:100px;padding:7px 15px;margin-bottom:30px;
-    background:var(--accent-dim);
-  }
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
-  h1.title{
-    font-family:var(--serif);font-weight:500;
-    font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.02em;
-    max-width:14ch;
-  }
-  h1.title em{font-style:italic;color:var(--accent);font-weight:400}
-  .lede{
-    margin-top:26px;max-width:60ch;color:var(--muted);font-size:18px;line-height:1.65;
-  }
-  .stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px}
-  .stats .s{display:flex;align-items:baseline;gap:9px}
-  .stats .s b{font-family:var(--serif);font-size:20px;color:var(--text)}
-  .stats .s span{font-size:13px;color:var(--faint)}
-
-  /* ---------- featured ---------- */
-  .featured{
-    display:block;margin:44px 0 8px;
-    border:1px solid var(--line);border-radius:18px;overflow:hidden;
-    background:linear-gradient(135deg,rgba(232,161,58,.10),rgba(232,161,58,.02));
-    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s;
-  }
-  .featured:hover{transform:translateY(-3px);border-color:rgba(232,161,58,.45)}
-  .featured .inner{padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-  .featured .tags{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.4px;padding:5px 11px;border-radius:100px;border:1px solid var(--line)}
-  .pill.hot{background:var(--accent);color:#1a1308;border-color:transparent;font-weight:500}
-  .featured h2{font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);font-weight:500;line-height:1.1}
-  .featured p{color:var(--muted);margin-top:8px;max-width:48ch;font-size:15px}
-  .go{
-    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
-    font-weight:600;font-size:15px;color:var(--accent-soft);
-  }
-  .go .arrow{transition:transform .3s}
-  .featured:hover .go .arrow{transform:translateX(5px)}
-
-  /* ---------- section label ---------- */
-  .seclabel{
-    display:flex;align-items:center;gap:16px;margin:64px 0 26px;
-  }
-  .seclabel h3{font-family:var(--mono);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);font-weight:500}
-  .seclabel .rule{flex:1;height:1px;background:var(--line)}
-
-  /* ---------- day grid ---------- */
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  .day{
-    position:relative;border:1px solid var(--line);border-radius:16px;
-    background:var(--card);padding:24px 24px 22px;cursor:pointer;
-    transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s;
-    overflow:hidden;
-  }
-  .day::after{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-    background:var(--accent);transform:scaleY(0);transform-origin:top;
-    transition:transform .35s ease;
-  }
-  .day:hover{transform:translateY(-3px);border-color:#33332f;background:var(--card-hover)}
-  .day:hover::after{transform:scaleY(1)}
-  .day .num{
-    font-family:var(--serif);font-size:30px;color:var(--accent);line-height:1;font-weight:500;
-    display:flex;align-items:baseline;gap:7px;
-  }
-  .day .num small{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.5px}
-  .day h4{font-size:17px;font-weight:600;margin:14px 0 7px;letter-spacing:-.01em}
-  .day .topics{color:var(--muted);font-size:13.5px;line-height:1.55}
-  .day .meta{
-    display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;
-    font-family:var(--mono);font-size:10.5px;color:var(--faint);
-  }
-  .day .meta span{border:1px solid var(--line-soft);border-radius:6px;padding:4px 9px}
-  .day .open{
-    margin-top:16px;font-size:13px;font-weight:600;color:var(--accent-soft);
-    display:inline-flex;align-items:center;gap:6px;
-  }
-  .day .open .arrow{transition:transform .3s}
-  .day:hover .open .arrow{transform:translateX(4px)}
-
-  /* ---------- detail panel (expand) ---------- */
-  .detail{
-    grid-column:1/-1;
-    max-height:0;opacity:0;overflow:hidden;
-    border-radius:16px;
-    transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
-    margin:0;
-  }
-  .detail.show{max-height:1400px;opacity:1;margin:-4px 0 8px}
-  .detail .panel{
-    border:1px solid rgba(232,161,58,.3);border-radius:16px;
-    background:linear-gradient(180deg,rgba(232,161,58,.05),transparent 40%),var(--bg-soft);
-    padding:30px 32px;
-  }
-  .detail h5{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:4px}
-  .detail .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
-  .qblock{border-top:1px solid var(--line-soft);padding:18px 0}
-  .qblock:first-of-type{border-top:none;padding-top:4px}
-  .qhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-  .qhead .tag{
-    font-family:var(--mono);font-size:10px;letter-spacing:.5px;
-    padding:3px 8px;border-radius:5px;font-weight:500;
-  }
-  .qhead .tag.py{background:rgba(127,174,111,.16);color:var(--green);border:1px solid rgba(127,174,111,.3)}
-  .qhead .tag.sql{background:var(--accent-dim);color:var(--accent-soft);border:1px solid rgba(232,161,58,.3)}
-  .qhead b{font-size:15px;font-weight:600}
-  .qblock p{color:var(--muted);font-size:14px;margin-left:2px}
-  .qblock code{font-family:var(--mono);font-size:12.5px;background:#0c0c0d;border:1px solid var(--line-soft);border-radius:5px;padding:1px 6px;color:var(--accent-soft)}
-
-  /* ---------- outcomes ---------- */
-  .outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .out{
-    border:1px solid var(--line);border-radius:14px;background:var(--card);
-    padding:24px;transition:border-color .3s,transform .3s;
-  }
-  .out:hover{border-color:#33332f;transform:translateY(-2px)}
-  .out .ic{font-size:24px;margin-bottom:14px;display:block}
-  .out b{display:block;font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:6px}
-  .out p{color:var(--muted);font-size:13.5px;line-height:1.55}
-
-  /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--line-soft);margin-top:80px;padding:40px 0 60px}
-  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  .foot .tags{display:flex;gap:8px;flex-wrap:wrap}
-  .foot .tags span{font-family:var(--mono);font-size:11px;color:var(--faint)}
-  .foot .by{color:var(--faint);font-size:13px}
-  .foot .by b{color:var(--muted);font-weight:600}
-
-  /* reveal anim */
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  header{padding:52px 0 26px;position:relative;z-index:1}
+  .brand-mark{position:absolute;top:0;right:34px;display:flex;align-items:center;gap:12px}
+  .brand-name{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text)}
+  .brand-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--brown));color:#fff8ea;display:grid;place-items:center;font-family:var(--display);font-weight:800;letter-spacing:-.5px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,146,42,.28);background:rgba(200,146,42,.04);padding:7px 16px;border-radius:4px;margin-bottom:24px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(200,146,42,.5)}
+  h1{font-family:var(--display);font-size:clamp(40px,7.5vw,82px);font-weight:800;line-height:.95;letter-spacing:-2.5px;max-width:980px}
+  h1 em{font-style:normal;background:linear-gradient(100deg,var(--gold),var(--brown),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .lede{max-width:760px;margin-top:24px;color:var(--text);font-size:15px;line-height:1.75;font-weight:500}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .stat{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:22px;padding:7px 15px;background:rgba(255,252,245,.58)}
+  .featured{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:26px;margin:48px 0 40px;background:rgba(255,252,245,.82);border:1px solid var(--border-bright);border-radius:14px;padding:30px 34px;position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s}
+  .featured::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--gold),var(--brown),var(--green))}
+  .featured:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(180,140,60,.13)}
+  .bolt{font-size:34px;color:var(--gold)}
+  .feature-kicker{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  .featured h2{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.8px}
+  .featured p{font-size:13px;color:var(--text);margin-top:6px}
+  .cta{font-family:var(--display);font-size:13px;font-weight:800;color:#fff8ea;background:linear-gradient(135deg,var(--gold),var(--brown));padding:13px 22px;border-radius:7px;white-space:nowrap;box-shadow:0 8px 20px rgba(184,118,14,.18)}
+  .section-label{display:flex;align-items:center;gap:16px;margin:40px 0 22px}
+  .section-label h3{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+  .section-label .rule{height:1px;background:var(--border);flex:1}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .day{position:relative;background:rgba(255,252,245,.84);border:1px solid var(--border);border-radius:14px;padding:24px;cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s}
+  .day::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;border-radius:14px 14px 0 0;background:linear-gradient(90deg,var(--accent),transparent)}
+  .day:hover{transform:translateY(-3px);border-color:var(--border-bright);box-shadow:0 8px 28px rgba(180,140,60,.10)}
+  .day:nth-of-type(4n+1){--accent:var(--gold)}
+  .day:nth-of-type(4n+3){--accent:var(--brown)}
+  .day:nth-of-type(4n+5){--accent:var(--green)}
+  .day:nth-of-type(4n+7){--accent:var(--amber)}
+  .num{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:3px;color:var(--muted);margin-bottom:12px}
+  .day h4{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--accent);line-height:1.1;margin-bottom:10px}
+  .topics{font-size:12px;color:var(--text);line-height:1.65;min-height:40px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .meta span{font-size:10px;color:var(--muted);border:1px solid var(--border);background:var(--surface2);border-radius:4px;padding:5px 9px}
+  .open{display:inline-flex;margin-top:16px;font-family:var(--display);font-size:12px;font-weight:800;color:var(--accent)}
+  .detail{grid-column:1/-1;display:none}
+  .detail.show{display:block}
+  .panel{background:rgba(255,252,245,.94);border:1px solid var(--border-bright);border-radius:14px;padding:28px;box-shadow:0 12px 36px rgba(180,140,60,.10)}
+  .panel h5{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.7px;margin-bottom:6px}
+  .sub{font-size:13px;color:var(--text);margin-bottom:22px;max-width:760px;line-height:1.7}
+  .examples{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .example{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .example-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);background:rgba(180,140,60,.025)}
+  .example-title{font-family:var(--display);font-size:14px;font-weight:800;line-height:1.25}
+  .tag{font-family:var(--display);font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px;padding:4px 8px;white-space:nowrap}
+  .tag.py{color:var(--green);background:rgba(90,140,46,.08);border:1px solid rgba(90,140,46,.25)}
+  .tag.sql{color:var(--brown);background:rgba(156,92,46,.08);border:1px solid rgba(156,92,46,.25)}
+  .note{font-size:11.5px;color:var(--text);line-height:1.6;padding:12px 16px 0}
+  pre{margin:12px 16px 16px;background:var(--code);color:#f1dfb8;border:1px solid rgba(200,146,42,.18);border-radius:8px;padding:14px;overflow:auto;font-size:11.5px;line-height:1.65}
+  code{font-family:var(--mono)}
+  .outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:68px}
+  .out{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+  .out b{display:block;font-family:var(--display);font-size:15px;font-weight:800;color:var(--ink);margin-bottom:7px}
+  .out p{font-size:11.5px;color:var(--text);line-height:1.65}
+  footer{border-top:1px solid var(--border);padding:28px 0 52px;color:var(--muted);font-size:11px}
+  .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
   .reveal.in{opacity:1;transform:none}
-
-  @media(max-width:760px){
-    .grid{grid-template-columns:1fr}
-    .outcomes{grid-template-columns:1fr}
-    .hero{padding:56px 0 40px}
-    .nav-tag{display:none}
-    .featured .inner{flex-direction:column;align-items:flex-start}
+  @media(max-width:860px){
+    .wrap{padding:0 20px}
+    header{padding-top:34px}
+    .brand-mark{position:static;justify-content:flex-end;margin-bottom:28px}
+    .featured{grid-template-columns:1fr}
+    .grid,.examples,.outcomes{grid-template-columns:1fr}
+    h1{letter-spacing:-1.4px}
   }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="bar">
-    <div class="brand">
-      <div class="mono-badge">LV</div>
-      <div class="who">
-        <b>Lokesh Venkatesh</b>
-        <span>Senior DS Coding Interview · 14-Day Study Guide</span>
-      </div>
-    </div>
-    <div class="nav-tag">14 days · coding round</div>
-  </div>
-</header>
-
 <div class="wrap">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="eyebrow reveal"><span class="dot"></span> Senior Data Scientist · Coding Interview</div>
-    <h1 class="title reveal">The 14-Day Coding <em>Interview Sprint</em></h1>
-    <p class="lede reveal">From fundamentals to production-grade problem solving. Three Python prompts and two SQL prompts every day, with the pattern, complexity cue, and common trap to watch for. Work through in order or jump to the topic you need.</p>
+  <header>
+    <div class="brand-mark">
+      <div class="brand-name">Lokesh Venkatesh</div>
+      <div class="brand-avatar">LV</div>
+    </div>
+    <div class="eyebrow reveal">Data Scientist Interview · Coding Guide</div>
+    <h1 class="reveal">14-Day Coding<br><em>Study Guide</em></h1>
+    <p class="lede reveal">A day-by-day coding round plan with real Python and SQL examples. Each day includes five Python solutions and three SQL patterns you can read, run, and adapt during interview prep.</p>
     <div class="stats reveal">
-      <div class="s"><b>14</b><span>days</span></div>
-      <div class="s"><b>42</b><span>Python prompts</span></div>
-      <div class="s"><b>28</b><span>SQL prompts</span></div>
-      <div class="s"><b>70</b><span>total prompts</span></div>
+      <span class="stat">14 days</span>
+      <span class="stat">70 Python examples</span>
+      <span class="stat">42 SQL examples</span>
+      <span class="stat">112 total code examples</span>
     </div>
-  </section>
+  </header>
 
-  <!-- FEATURED -->
   <a class="featured reveal" href="#day1">
-    <div class="inner">
-      <div>
-        <div class="tags">
-          <span class="pill hot">⚡ Day 01 · Start here</span>
-          <span class="pill">Foundations</span>
-          <span class="pill">Fully worked</span>
-        </div>
-        <h2>Foundations: Lists, Strings, Dicts &amp; Joins</h2>
-        <p>The warm-up filter round at top companies. Speed plus crisp trade-off reasoning is what separates senior from mid-level here.</p>
-      </div>
-      <span class="go">Open Day 1 <span class="arrow">→</span></span>
+    <div class="bolt">⚡</div>
+    <div>
+      <div class="feature-kicker">01 · Featured · Start Here</div>
+      <h2>Foundations: Lists, Strings, Dicts &amp; Joins</h2>
+      <p>Start with the practical patterns that show up in almost every data scientist coding screen.</p>
     </div>
+    <div class="cta">Open Day 1 →</div>
   </a>
 
-  <!-- DAY GRID -->
-  <div class="seclabel reveal"><h3>The 14-Day Plan</h3><div class="rule"></div></div>
-  <div class="grid" id="grid"></div>
+  <section>
+    <div class="section-label reveal"><h3>All Days</h3><div class="rule"></div></div>
+    <div class="grid" id="grid"></div>
+  </section>
 
-  <!-- OUTCOMES -->
-  <div class="seclabel reveal"><h3>What you'll come away with</h3><div class="rule"></div></div>
-  <div class="outcomes">
-    <div class="out reveal"><span class="ic">🧠</span><b>Pattern fluency</b><p>Recognize two-pointer, sliding-window, hashmap, and DP patterns on sight instead of re-deriving them under pressure.</p></div>
-    <div class="out reveal"><span class="ic">⚙️</span><b>Optimization instinct</b><p>Always start brute-force, then articulate the exact trade-off that earns the optimal solution.</p></div>
-    <div class="out reveal"><span class="ic">📊</span><b>SQL for analytics</b><p>Joins, window functions, CTEs, ranking, retention and cohort queries — the real interview surface.</p></div>
-    <div class="out reveal"><span class="ic">🚀</span><b>Complexity precision</b><p>State time and space for every approach without hand-waving — the senior signal interviewers grade hardest.</p></div>
-    <div class="out reveal"><span class="ic">🔍</span><b>Mistake awareness</b><p>Know the quiet traps — quadratic <code>.count()</code>, LEFT JOIN collapsing to INNER, WHERE vs HAVING.</p></div>
-    <div class="out reveal"><span class="ic">⚡</span><b>DS coding edge</b><p>Pandas/NumPy-style manipulation and ML metrics from scratch — the part generic LeetCode prep skips.</p></div>
-  </div>
-
+  <section>
+    <div class="section-label reveal"><h3>What This Builds</h3><div class="rule"></div></div>
+    <div class="outcomes">
+      <div class="out reveal"><b>Python fluency</b><p>Hash maps, windows, heaps, recursion, DP, graphs, pandas, NumPy, and ML metrics from scratch.</p></div>
+      <div class="out reveal"><b>SQL interview muscle</b><p>Joins, CTEs, windows, ranking, cohorts, retention, funnels, attribution, and sessionization.</p></div>
+      <div class="out reveal"><b>Senior signal</b><p>Every example is phrased as code plus the decision it demonstrates, so you can explain trade-offs live.</p></div>
+    </div>
+  </section>
 </div>
 
 <footer>
   <div class="wrap foot">
-    <div class="tags"><span>#DataScience</span><span>#Python</span><span>#SQL</span><span>#InterviewPrep</span><span>#MachineLearning</span></div>
-    <div class="by">Crafted in the style of <b>Lokesh Venkatesh</b> · Interactive Guide</div>
+    <div>#DataScience &nbsp;#Python &nbsp;#SQL &nbsp;#InterviewPrep</div>
+    <div>Lokesh Venkatesh · Coding Round Guide</div>
   </div>
 </footer>
 
 <script>
-  const days = [
-    {n:"01", id:"day1", t:"Foundations", topics:"Lists, strings, dictionaries, sets · basic joins & aggregations", py:"Hash maps · frequency counts", sql:"Joins · GROUP BY / HAVING",
-      detail:{title:"Day 1 — Foundations", sub:"Baseline fluency. The filter round — solve fast, reason out loud.",
-        qs:[
-          {type:"py",name:"Two Sum",d:"One-pass hash map: store <code>value→index</code>, check complement before inserting. O(n) time, O(n) space — beats the O(n²) nested scan."},
-          {type:"py",name:"Valid Anagram",d:"<code>Counter(s)==Counter(t)</code> after a length guard. O(n) vs the O(n log n) sort approach."},
-          {type:"py",name:"First Non-Repeating Char",d:"Pre-count, then scan once for count==1. Avoid the <code>.count()</code>-in-a-loop quadratic trap."},
-          {type:"sql",name:"Users With Zero Orders",d:"LEFT JOIN + <code>COUNT(o.order_id)</code> — counting the right-side key returns 0, not 1, for unmatched users."},
-          {type:"sql",name:"Revenue by Country",d:"Filter in WHERE before GROUP BY; never put row-level conditions in HAVING."}
-        ]}},
-    {n:"02", id:"day2", t:"Sorting, Searching & Two Pointers", topics:"Binary search, sort-based patterns, converging pointers · multi-table joins, subqueries", py:"Binary search · two pointers", sql:"Subqueries · multi-join",
-      detail:{title:"Day 2 — Sorting, Searching, Two Pointers", sub:"The workhorse patterns behind half of all array problems.",
-        qs:[
-          {type:"py",name:"Binary Search + variants",d:"Find first/last occurrence, search rotated array. Master the <code>lo/hi/mid</code> invariant. O(log n)."},
-          {type:"py",name:"3Sum",d:"Sort, fix one element, two-pointer the rest, skip duplicates. O(n²) — the canonical follow-up to Two Sum."},
-          {type:"py",name:"Container With Most Water",d:"Two pointers from the ends, move the shorter wall inward. O(n) greedy."},
-          {type:"sql",name:"Second-Highest Salary",d:"Subquery with <code>MAX(... WHERE &lt; MAX)</code> or DISTINCT + OFFSET. Handle ties and NULLs."},
-          {type:"sql",name:"Customers Above Avg Order",d:"Correlated vs non-correlated subquery — compare readability and the likely query plan for your SQL engine."}
-        ]}},
-    {n:"03", id:"day3", t:"Sliding Window", topics:"Fixed & dynamic windows, substring problems · CTEs", py:"Sliding window · prefix sums", sql:"CTEs · readability",
-      detail:{title:"Day 3 — Sliding Window & CTEs", sub:"Turn O(n²) substring scans into O(n) single passes.",
-        qs:[
-          {type:"py",name:"Longest Substring No Repeat",d:"Dynamic window + last-seen map; jump the left pointer past the repeat. O(n)."},
-          {type:"py",name:"Max Sum Subarray Size K",d:"Fixed window: add the new element, drop the oldest. O(n), O(1)."},
-          {type:"py",name:"Min Window Substring",d:"Expand to satisfy, contract to minimize, track a need-counter. Hard but template-able."},
-          {type:"sql",name:"Refactor Nested Query to CTE",d:"<code>WITH</code> chains for readability; understand materialization differences across engines."},
-          {type:"sql",name:"Multi-step Aggregation",d:"Stack CTEs: clean → aggregate → rank, each step named and testable."}
-        ]}},
-    {n:"04", id:"day4", t:"Hash Maps (Advanced)", topics:"Grouping, prefix-sum maps, frequency signatures · window functions intro", py:"Prefix-sum maps · grouping", sql:"OVER() · PARTITION BY",
-      detail:{title:"Day 4 — Advanced Hash Maps & Window Funcs", sub:"The map-as-memory pattern + your first window functions.",
-        qs:[
-          {type:"py",name:"Group Anagrams",d:"Key by sorted tuple or char-count signature into a <code>defaultdict(list)</code>. Sorting is O(n·k log k); fixed alphabet counts can be O(n·k)."},
-          {type:"py",name:"Subarray Sum Equals K",d:"Prefix sum + count map: <code>seen[prefix-k]</code>. O(n) — the trick that surprises everyone."},
-          {type:"py",name:"Top-K Frequent",d:"Counter + heap of size K. O(n log K), better than full sort."},
-          {type:"sql",name:"Running Total",d:"<code>SUM(x) OVER (ORDER BY date)</code> — no self-join needed."},
-          {type:"sql",name:"Per-Group Average",d:"<code>AVG(x) OVER (PARTITION BY group)</code> keeps row detail alongside the aggregate."}
-        ]}},
-    {n:"05", id:"day5", t:"Recursion & Ranking", topics:"Recursion, backtracking basics · ROW_NUMBER / RANK / DENSE_RANK", py:"Recursion · backtracking", sql:"Ranking functions",
-      detail:{title:"Day 5 — Recursion & SQL Ranking", sub:"Think in base-case + recurse; rank rows three different ways.",
-        qs:[
-          {type:"py",name:"Permutations / Subsets",d:"Backtracking template: choose → recurse → un-choose. O(n·n!) / O(n·2ⁿ)."},
-          {type:"py",name:"Climbing Stairs (recursive→memo)",d:"Naive O(2ⁿ) → memoized O(n). The bridge into DP."},
-          {type:"py",name:"Flatten Nested List",d:"Recurse on lists, yield on ints — generator-based and clean."},
-          {type:"sql",name:"Nth Highest per Group",d:"<code>ROW_NUMBER() OVER (PARTITION BY g ORDER BY x DESC)</code>, filter rn=N."},
-          {type:"sql",name:"RANK vs DENSE_RANK",d:"Know exactly how each handles ties — a frequent gotcha question."}
-        ]}},
-    {n:"06", id:"day6", t:"Stacks, Queues & Intervals", topics:"Monotonic stacks, interval merging · running totals, moving averages", py:"Stacks · intervals", sql:"Moving averages · frames",
-      detail:{title:"Day 6 — Stacks, Queues & Intervals", sub:"Monotonic-stack tricks and the window-frame syntax most people fumble.",
-        qs:[
-          {type:"py",name:"Valid Parentheses",d:"Stack of expected closers. O(n) — the classic stack intro."},
-          {type:"py",name:"Merge Intervals",d:"Sort by start, merge overlaps in one pass. O(n log n)."},
-          {type:"py",name:"Daily Temperatures",d:"Monotonic decreasing stack of indices. O(n) next-greater-element pattern."},
-          {type:"sql",name:"7-Day Moving Average",d:"<code>AVG(x) OVER (ORDER BY d ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)</code>."},
-          {type:"sql",name:"Cumulative % of Total",d:"Running sum divided by a window total — combine two OVER clauses."}
-        ]}},
-    {n:"07", id:"day7", t:"Trees Basics", topics:"Traversals, BST properties, depth · self-joins, gaps-and-islands", py:"Tree traversals · BST", sql:"Self-joins · islands",
-      detail:{title:"Day 7 — Trees & Self-Joins", sub:"Recursive traversals + the SQL pattern interviewers love to spring.",
-        qs:[
-          {type:"py",name:"In/Pre/Post-order Traversal",d:"Recursive and iterative-with-stack. Know both. O(n)."},
-          {type:"py",name:"Validate BST",d:"Carry (min,max) bounds down the recursion — not just parent comparison."},
-          {type:"py",name:"Max Depth / Diameter",d:"Post-order returning height while tracking a global max. O(n)."},
-          {type:"sql",name:"Employee-Manager Self-Join",d:"Join a table to itself on <code>mgr_id = id</code>; mind NULL top-level managers."},
-          {type:"sql",name:"Gaps & Islands",d:"Group consecutive rows via <code>date - ROW_NUMBER()</code> — a senior favorite."}
-        ]}},
-    {n:"08", id:"day8", t:"Graphs Basics", topics:"BFS, DFS, connected components · retention queries", py:"BFS · DFS · components", sql:"Retention · returning users",
-      detail:{title:"Day 8 — Graphs & Retention", sub:"Traversal foundations and the metric every growth team asks about.",
-        qs:[
-          {type:"py",name:"Number of Islands",d:"DFS/BFS flood-fill over a grid. O(rows·cols)."},
-          {type:"py",name:"Clone Graph / Course Schedule",d:"Visited-map cloning; topological sort for cycle detection."},
-          {type:"py",name:"Shortest Path (unweighted)",d:"BFS layer-by-layer with a queue. O(V+E)."},
-          {type:"sql",name:"Day-N Retention",d:"Self-join signups to activity N days later; use the date arithmetic syntax for your SQL dialect, then divide by cohort size."},
-          {type:"sql",name:"Returning vs New Users",d:"Compare each user's first-active month to current month."}
-        ]}},
-    {n:"09", id:"day9", t:"Dynamic Programming", topics:"1D DP, memoization, tabulation · cohort analysis", py:"DP · memo & tabulation", sql:"Cohort tables",
-      detail:{title:"Day 9 — DP Basics & Cohorts", sub:"Define the state, write the recurrence, then optimize space.",
-        qs:[
-          {type:"py",name:"House Robber",d:"<code>dp[i]=max(dp[i-1], dp[i-2]+v)</code>, then roll to two variables. O(n)/O(1)."},
-          {type:"py",name:"Coin Change",d:"Unbounded knapsack; min coins for each amount. O(amount·coins)."},
-          {type:"py",name:"Longest Increasing Subsequence",d:"O(n²) DP, then the O(n log n) patience-sorting upgrade."},
-          {type:"sql",name:"Cohort Retention Grid",d:"Cohort month × periods-since with conditional aggregation."},
-          {type:"sql",name:"Cohort Revenue Curve",d:"Cumulative revenue per signup cohort over time."}
-        ]}},
-    {n:"10", id:"day10", t:"DP Continued & Greedy", topics:"2D DP, grids, greedy choices · funnel / conversion metrics", py:"2D DP · greedy", sql:"Funnels · conversion",
-      detail:{title:"Day 10 — 2D DP, Greedy & Funnels", sub:"Grid DP and the funnel queries product analysts live in.",
-        qs:[
-          {type:"py",name:"Edit Distance",d:"2D DP over two strings — insert/delete/replace. O(m·n)."},
-          {type:"py",name:"Unique Paths / Min Path Sum",d:"Grid DP; reduce to a rolling 1D array. O(m·n) time, O(n) space."},
-          {type:"py",name:"Jump Game",d:"Greedy farthest-reach scan. O(n) — proves greedy beats DP here."},
-          {type:"sql",name:"Multi-Step Funnel",d:"Conditional counts across stages; conversion = stage_k / stage_1."},
-          {type:"sql",name:"Drop-off Between Steps",d:"Window LAG across ordered funnel stages."}
-        ]}},
-    {n:"11", id:"day11", t:"Pandas / NumPy Manipulation", topics:"Vectorization, groupby, joins, reshaping · business metrics (DAU/MAU, churn)", py:"Pandas · NumPy vectorization", sql:"DAU/MAU · churn",
-      detail:{title:"Day 11 — Pandas/NumPy & Business Metrics", sub:"The DS-specific layer generic prep skips entirely.",
-        qs:[
-          {type:"py",name:"GroupBy-Agg-Merge",d:"Replicate SQL joins/aggregations in pandas; avoid <code>apply</code> when a vectorized op exists."},
-          {type:"py",name:"Vectorize a Loop",d:"Rewrite a Python loop as NumPy broadcasting — 10–100× speedups and why."},
-          {type:"py",name:"Rolling / Resample",d:"Time-series windows and downsampling with <code>.rolling()</code> / <code>.resample()</code>."},
-          {type:"sql",name:"DAU / MAU Ratio",d:"Daily active users divided by monthly or rolling-30-day active users, with both windows aligned before comparison."},
-          {type:"sql",name:"Monthly Churn Rate",d:"Users active last month but not this month, over last-month base."}
-        ]}},
-    {n:"12", id:"day12", t:"ML / DS Coding", topics:"Metrics from scratch, sampling, train/test logic · advanced window functions", py:"ML metrics · sampling", sql:"NTILE · advanced frames",
-      detail:{title:"Day 12 — ML Coding & Advanced SQL", sub:"Implement the math; don't just import it.",
-        qs:[
-          {type:"py",name:"Precision/Recall/F1 from scratch",d:"From a confusion matrix, no sklearn. Then ROC-AUC intuition."},
-          {type:"py",name:"K-Means / Gradient Descent step",d:"One update iteration by hand — tests genuine understanding."},
-          {type:"py",name:"Stratified Sampling",d:"Sample preserving class proportions; reproducible with a seed."},
-          {type:"sql",name:"Percentile Buckets with NTILE",d:"<code>NTILE(4) OVER (ORDER BY x)</code> for quartile segmentation."},
-          {type:"sql",name:"Median via Window",d:"Percentile / row-position trick — SQL has no built-in MEDIAN everywhere."}
-        ]}},
-    {n:"13", id:"day13", t:"Mixed Hard Set", topics:"System-design-flavored coding, scale trade-offs · complex analytical SQL", py:"Design-flavored coding", sql:"Complex analytics",
-      detail:{title:"Day 13 — Harder Mixed Set", sub:"Ambiguous prompts where scoping and trade-offs are the test.",
-        qs:[
-          {type:"py",name:"LRU Cache",d:"OrderedDict or hashmap+doubly-linked-list. O(1) get/put — the classic design-coding problem."},
-          {type:"py",name:"Top-K Streaming",d:"Heap + count map under a memory budget; mention count-min sketch for approximate."},
-          {type:"py",name:"Rate Limiter",d:"Sliding-window-log vs token-bucket — discuss the trade-offs."},
-          {type:"sql",name:"Sessionization",d:"Group events into sessions via a 30-min inactivity gap (LAG + cumulative sum)."},
-          {type:"sql",name:"Multi-CTE Attribution",d:"First/last-touch attribution across an event log."}
-        ]}},
-    {n:"14", id:"day14", t:"Full Mock & Review", topics:"Timed mixed problems, spaced review of weak spots · post-mortem checklist", py:"Timed mock · review", sql:"Timed mock · review",
-      detail:{title:"Day 14 — Full Mock & Review", sub:"Simulate the real thing, then patch the gaps.",
-        qs:[
-          {type:"py",name:"45-min Timed Set",d:"2 mediums + 1 hard under a clock. Narrate as you would live."},
-          {type:"py",name:"Re-solve Weak Days",d:"Redo the problems you stumbled on without looking at solutions."},
-          {type:"sql",name:"30-min SQL Gauntlet",d:"One window-function, one CTE, one retention question back-to-back."},
-          {type:"sql",name:"Explain-Your-Query Drill",d:"Talk through each query as if to an interviewer — clarity counts."},
-          {type:"py",name:"Behavioral + Complexity Recap",d:"Restate Big-O for every pattern; rehearse the trade-off one-liners."}
-        ]}}
-  ];
+const days = [
+  {
+    n:"01", id:"day1", t:"Foundations", topics:"Lists, strings, dictionaries, sets, joins, aggregations", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Baseline data-structure fluency and the SQL joins/aggregations you should be able to write cold.",
+    examples:[
+      {type:"py", name:"Two Sum with a hash map", note:"One pass, O(n) time, O(n) space.", code:`def two_sum(nums, target):
+    seen = {}
+    for i, x in enumerate(nums):
+        need = target - x
+        if need in seen:
+            return [seen[need], i]
+        seen[x] = i
+    return []`},
+      {type:"py", name:"Anagram check", note:"Counter handles repeated characters without sorting.", code:`from collections import Counter
 
-  const grid = document.getElementById('grid');
-  days.forEach(d=>{
-    const card = document.createElement('div');
-    card.className='day reveal';
-    card.id=d.id;
-    card.setAttribute('role','button');
-    card.setAttribute('tabindex','0');
-    card.setAttribute('aria-expanded','false');
-    card.innerHTML = `
-      <div class="num">${d.n}<small>/ 14</small></div>
-      <h4>${d.t}</h4>
-      <div class="topics">${d.topics}</div>
-      <div class="meta"><span>🐍 ${d.py}</span><span>🗄️ ${d.sql}</span></div>
-      <span class="open">Expand day <span class="arrow">→</span></span>`;
-    const detail = document.createElement('div');
-    detail.className='detail';
-    detail.id=`${d.id}-detail`;
-    card.setAttribute('aria-controls',detail.id);
-    detail.innerHTML = `<div class="panel">
-        <h5>${d.detail.title}</h5>
-        <div class="sub">${d.detail.sub}</div>
-        ${d.detail.qs.map(q=>`
-          <div class="qblock">
-            <div class="qhead"><span class="tag ${q.type}">${q.type==='py'?'PYTHON':'SQL'}</span><b>${q.name}</b></div>
-            <p>${q.d}</p>
-          </div>`).join('')}
-      </div>`;
-    const toggleDay = ()=>{
-      const open = detail.classList.contains('show');
-      document.querySelectorAll('.detail.show').forEach(el=>el.classList.remove('show'));
-      document.querySelectorAll('.day[aria-expanded="true"]').forEach(el=>el.setAttribute('aria-expanded','false'));
-      if(!open){
-        detail.classList.add('show');
-        card.setAttribute('aria-expanded','true');
-        setTimeout(()=>detail.scrollIntoView({behavior:'smooth',block:'nearest'}),120);
-      }
-    };
-    card.addEventListener('click',toggleDay);
-    card.addEventListener('keydown',e=>{
-      if(e.key==='Enter' || e.key===' '){
-        e.preventDefault();
-        toggleDay();
-      }
-    });
-    grid.appendChild(card);
-    grid.appendChild(detail);
+def is_anagram(a, b):
+    return len(a) == len(b) and Counter(a) == Counter(b)`},
+      {type:"py", name:"First non-repeating character", note:"Count once, then scan once. Avoid s.count inside a loop.", code:`from collections import Counter
+
+def first_unique_char(s):
+    counts = Counter(s)
+    for i, ch in enumerate(s):
+        if counts[ch] == 1:
+            return i
+    return -1`},
+      {type:"py", name:"Deduplicate while preserving order", note:"Useful for event streams and feature lists.", code:`def dedupe_ordered(values):
+    seen = set()
+    out = []
+    for value in values:
+        if value not in seen:
+            seen.add(value)
+            out.append(value)
+    return out`},
+      {type:"py", name:"Top category by frequency", note:"Common in exploratory data checks.", code:`from collections import Counter
+
+def most_common_category(rows, key):
+    counts = Counter(row[key] for row in rows)
+    return counts.most_common(1)[0] if counts else None`},
+      {type:"sql", name:"Users with zero orders", note:"Count the right-side key so unmatched rows count as zero.", code:`SELECT u.user_id
+FROM users u
+LEFT JOIN orders o
+  ON o.user_id = u.user_id
+GROUP BY u.user_id
+HAVING COUNT(o.order_id) = 0;`},
+      {type:"sql", name:"Revenue by country", note:"Filter rows before grouping; aggregate after.", code:`SELECT u.country,
+       SUM(o.amount) AS revenue
+FROM orders o
+JOIN users u
+  ON u.user_id = o.user_id
+WHERE o.status = 'paid'
+GROUP BY u.country
+ORDER BY revenue DESC;`},
+      {type:"sql", name:"Average order value", note:"Use NULLIF to avoid divide-by-zero when reused in wider reports.", code:`SELECT DATE_TRUNC('month', order_date) AS month,
+       SUM(amount) / NULLIF(COUNT(order_id), 0) AS aov
+FROM orders
+WHERE status = 'paid'
+GROUP BY 1
+ORDER BY 1;`}
+    ]
+  },
+  {
+    n:"02", id:"day2", t:"Sorting, Searching & Two Pointers", topics:"Binary search, sort-based scans, converging pointers, subqueries", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Turn quadratic scans into sorted or logarithmic patterns, then pair that mindset with clean SQL subqueries.",
+    examples:[
+      {type:"py", name:"Binary search", note:"The invariant is that the target, if present, stays inside lo..hi.", code:`def binary_search(nums, target):
+    lo, hi = 0, len(nums) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1`},
+      {type:"py", name:"First position of target", note:"Bias left when you find the target.", code:`def first_position(nums, target):
+    lo, hi, ans = 0, len(nums) - 1, -1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] >= target:
+            if nums[mid] == target:
+                ans = mid
+            hi = mid - 1
+        else:
+            lo = mid + 1
+    return ans`},
+      {type:"py", name:"Three sum", note:"Sort, fix one value, then use two pointers.", code:`def three_sum(nums):
+    nums.sort()
+    out = []
+    for i, x in enumerate(nums):
+        if i and x == nums[i - 1]:
+            continue
+        l, r = i + 1, len(nums) - 1
+        while l < r:
+            s = x + nums[l] + nums[r]
+            if s == 0:
+                out.append([x, nums[l], nums[r]])
+                l += 1
+                while l < r and nums[l] == nums[l - 1]:
+                    l += 1
+            elif s < 0:
+                l += 1
+            else:
+                r -= 1
+    return out`},
+      {type:"py", name:"Container with most water", note:"Move the shorter wall because the area is height-limited.", code:`def max_area(height):
+    l, r = 0, len(height) - 1
+    best = 0
+    while l < r:
+        best = max(best, (r - l) * min(height[l], height[r]))
+        if height[l] < height[r]:
+            l += 1
+        else:
+            r -= 1
+    return best`},
+      {type:"py", name:"Merge two sorted arrays", note:"Linear scan preserves sorted order.", code:`def merge_sorted(a, b):
+    i = j = 0
+    out = []
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            out.append(a[i]); i += 1
+        else:
+            out.append(b[j]); j += 1
+    return out + a[i:] + b[j:]`},
+      {type:"sql", name:"Second highest salary", note:"DENSE_RANK handles ties explicitly.", code:`WITH ranked AS (
+  SELECT employee_id,
+         salary,
+         DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+  FROM employees
+)
+SELECT employee_id, salary
+FROM ranked
+WHERE rnk = 2;`},
+      {type:"sql", name:"Customers above average order value", note:"Compare customer-level aggregates to the global aggregate.", code:`WITH customer_aov AS (
+  SELECT user_id, AVG(amount) AS avg_order
+  FROM orders
+  GROUP BY user_id
+)
+SELECT user_id, avg_order
+FROM customer_aov
+WHERE avg_order > (SELECT AVG(amount) FROM orders);`},
+      {type:"sql", name:"Products never purchased", note:"LEFT JOIN anti-join pattern.", code:`SELECT p.product_id, p.product_name
+FROM products p
+LEFT JOIN order_items oi
+  ON oi.product_id = p.product_id
+WHERE oi.product_id IS NULL;`}
+    ]
+  },
+  {
+    n:"03", id:"day3", t:"Sliding Window", topics:"Fixed windows, dynamic windows, substrings, CTE pipelines", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Window state is the fastest way to turn repeated scans into one clean pass.",
+    examples:[
+      {type:"py", name:"Longest substring without repeats", note:"Jump the left pointer past the last duplicate.", code:`def longest_unique_substring(s):
+    last_seen = {}
+    left = best = 0
+    for right, ch in enumerate(s):
+        if ch in last_seen and last_seen[ch] >= left:
+            left = last_seen[ch] + 1
+        last_seen[ch] = right
+        best = max(best, right - left + 1)
+    return best`},
+      {type:"py", name:"Max sum subarray of size k", note:"Fixed window: add new, remove old.", code:`def max_sum_k(nums, k):
+    window = sum(nums[:k])
+    best = window
+    for i in range(k, len(nums)):
+        window += nums[i] - nums[i - k]
+        best = max(best, window)
+    return best`},
+      {type:"py", name:"Minimum length subarray at least target", note:"Expand to satisfy, contract to optimize.", code:`def min_len_at_least(nums, target):
+    left = total = 0
+    best = float("inf")
+    for right, x in enumerate(nums):
+        total += x
+        while total >= target:
+            best = min(best, right - left + 1)
+            total -= nums[left]
+            left += 1
+    return 0 if best == float("inf") else best`},
+      {type:"py", name:"Moving average", note:"Queue-free fixed window using a running sum.", code:`def moving_average(values, k):
+    out, total = [], 0
+    for i, value in enumerate(values):
+        total += value
+        if i >= k:
+            total -= values[i - k]
+        if i >= k - 1:
+            out.append(total / k)
+    return out`},
+      {type:"py", name:"At most k distinct values", note:"A useful template for segmentation questions.", code:`from collections import defaultdict
+
+def longest_at_most_k_distinct(values, k):
+    counts = defaultdict(int)
+    left = best = 0
+    for right, value in enumerate(values):
+        counts[value] += 1
+        while len(counts) > k:
+            counts[values[left]] -= 1
+            if counts[values[left]] == 0:
+                del counts[values[left]]
+            left += 1
+        best = max(best, right - left + 1)
+    return best`},
+      {type:"sql", name:"Clean then aggregate with CTEs", note:"Name every step so the query debugs cleanly.", code:`WITH clean_orders AS (
+  SELECT *
+  FROM orders
+  WHERE status = 'paid' AND amount > 0
+),
+daily AS (
+  SELECT order_date::date AS day, SUM(amount) AS revenue
+  FROM clean_orders
+  GROUP BY 1
+)
+SELECT *
+FROM daily
+ORDER BY day;`},
+      {type:"sql", name:"Users active in first 7 days", note:"Join signup date to bounded activity dates.", code:`SELECT u.user_id,
+       COUNT(DISTINCT a.activity_date) AS active_days_7d
+FROM users u
+LEFT JOIN activity a
+  ON a.user_id = u.user_id
+ AND a.activity_date >= u.signup_date
+ AND a.activity_date < u.signup_date + INTERVAL '7 day'
+GROUP BY u.user_id;`},
+      {type:"sql", name:"Daily revenue plus 7-day rolling sum", note:"Aggregate first, then window over the daily grain.", code:`WITH daily AS (
+  SELECT order_date::date AS day, SUM(amount) AS revenue
+  FROM orders
+  GROUP BY 1
+)
+SELECT day,
+       revenue,
+       SUM(revenue) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS revenue_7d
+FROM daily;`}
+    ]
+  },
+  {
+    n:"04", id:"day4", t:"Advanced Hash Maps & Windows", topics:"Grouping, prefix sums, heaps, SQL window functions", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Use maps as memory in Python and windows as memory in SQL.",
+    examples:[
+      {type:"py", name:"Group anagrams", note:"Sorted tuple is simple; char counts are faster for fixed alphabets.", code:`from collections import defaultdict
+
+def group_anagrams(words):
+    groups = defaultdict(list)
+    for word in words:
+        groups[tuple(sorted(word))].append(word)
+    return list(groups.values())`},
+      {type:"py", name:"Subarray sum equals k", note:"Prefix counts turn O(n^2) into O(n).", code:`from collections import defaultdict
+
+def subarray_sum(nums, k):
+    seen = defaultdict(int)
+    seen[0] = 1
+    prefix = ans = 0
+    for x in nums:
+        prefix += x
+        ans += seen[prefix - k]
+        seen[prefix] += 1
+    return ans`},
+      {type:"py", name:"Top k frequent values", note:"Heap size k avoids sorting all unique values.", code:`from collections import Counter
+import heapq
+
+def top_k_frequent(values, k):
+    counts = Counter(values)
+    return [item for item, _ in heapq.nlargest(k, counts.items(), key=lambda x: x[1])]`},
+      {type:"py", name:"Index records by key", note:"A simple utility pattern for fast joins in Python.", code:`from collections import defaultdict
+
+def index_by(rows, key):
+    idx = defaultdict(list)
+    for row in rows:
+        idx[row[key]].append(row)
+    return idx`},
+      {type:"py", name:"Detect duplicate within distance k", note:"Sliding set keeps only the recent window.", code:`def contains_nearby_duplicate(nums, k):
+    window = set()
+    for i, x in enumerate(nums):
+        if x in window:
+            return True
+        window.add(x)
+        if len(window) > k:
+            window.remove(nums[i - k])
+    return False`},
+      {type:"sql", name:"Running total", note:"Window aggregate avoids a self join.", code:`SELECT day,
+       revenue,
+       SUM(revenue) OVER (ORDER BY day) AS running_revenue
+FROM daily_revenue
+ORDER BY day;`},
+      {type:"sql", name:"Percent of category total", note:"Keep row detail while adding group context.", code:`SELECT product_id,
+       category,
+       revenue,
+       revenue / NULLIF(SUM(revenue) OVER (PARTITION BY category), 0) AS pct_of_category
+FROM product_revenue;`},
+      {type:"sql", name:"Previous event per user", note:"LAG is the standard event-stream comparison tool.", code:`SELECT user_id,
+       event_time,
+       event_name,
+       LAG(event_time) OVER (PARTITION BY user_id ORDER BY event_time) AS previous_event_time
+FROM events;`}
+    ]
+  },
+  {
+    n:"05", id:"day5", t:"Recursion, Backtracking & Ranking", topics:"Recursive templates, subsets, permutations, row ranking", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Practice state choice in recursive code and tie behavior in SQL ranking.",
+    examples:[
+      {type:"py", name:"Generate subsets", note:"Choose or skip each item.", code:`def subsets(nums):
+    out = []
+    path = []
+    def dfs(i):
+        if i == len(nums):
+            out.append(path[:])
+            return
+        dfs(i + 1)
+        path.append(nums[i])
+        dfs(i + 1)
+        path.pop()
+    dfs(0)
+    return out`},
+      {type:"py", name:"Generate permutations", note:"Track used positions to avoid reusing values.", code:`def permutations(nums):
+    out, path, used = [], [], [False] * len(nums)
+    def dfs():
+        if len(path) == len(nums):
+            out.append(path[:])
+            return
+        for i, x in enumerate(nums):
+            if used[i]:
+                continue
+            used[i] = True
+            path.append(x)
+            dfs()
+            path.pop()
+            used[i] = False
+    dfs()
+    return out`},
+      {type:"py", name:"Climbing stairs with memo", note:"Memoization turns exponential recursion into linear time.", code:`from functools import lru_cache
+
+def climb_stairs(n):
+    @lru_cache(None)
+    def ways(i):
+        if i <= 2:
+            return i
+        return ways(i - 1) + ways(i - 2)
+    return ways(n)`},
+      {type:"py", name:"Flatten nested list", note:"Yield keeps memory small for large nested inputs.", code:`def flatten(values):
+    for value in values:
+        if isinstance(value, list):
+            yield from flatten(value)
+        else:
+            yield value`},
+      {type:"py", name:"Combination sum", note:"Reuse the same index when repeats are allowed.", code:`def combination_sum(candidates, target):
+    out, path = [], []
+    def dfs(start, remaining):
+        if remaining == 0:
+            out.append(path[:]); return
+        for i in range(start, len(candidates)):
+            x = candidates[i]
+            if x <= remaining:
+                path.append(x)
+                dfs(i, remaining - x)
+                path.pop()
+    dfs(0, target)
+    return out`},
+      {type:"sql", name:"Top order per customer", note:"ROW_NUMBER chooses exactly one row per group.", code:`WITH ranked AS (
+  SELECT *,
+         ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY amount DESC, order_id) AS rn
+  FROM orders
+)
+SELECT *
+FROM ranked
+WHERE rn = 1;`},
+      {type:"sql", name:"Rank products by revenue", note:"RANK leaves gaps after ties; DENSE_RANK does not.", code:`SELECT category,
+       product_id,
+       revenue,
+       RANK() OVER (PARTITION BY category ORDER BY revenue DESC) AS revenue_rank
+FROM product_revenue;`},
+      {type:"sql", name:"Nth purchase per user", note:"Filter row_number after sequencing events.", code:`WITH purchases AS (
+  SELECT user_id,
+         order_id,
+         order_date,
+         ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY order_date) AS purchase_number
+  FROM orders
+)
+SELECT *
+FROM purchases
+WHERE purchase_number = 3;`}
+    ]
+  },
+  {
+    n:"06", id:"day6", t:"Stacks, Queues & Intervals", topics:"Monotonic stacks, interval merging, moving averages", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Stack and interval patterns are compact, but the edge cases are where interviews get interesting.",
+    examples:[
+      {type:"py", name:"Valid parentheses", note:"Push expected closers, then match directly.", code:`def is_valid_parentheses(s):
+    pairs = {"(": ")", "[": "]", "{": "}"}
+    stack = []
+    for ch in s:
+        if ch in pairs:
+            stack.append(pairs[ch])
+        elif not stack or stack.pop() != ch:
+            return False
+    return not stack`},
+      {type:"py", name:"Merge intervals", note:"Sort by start, then extend the current interval.", code:`def merge_intervals(intervals):
+    intervals.sort()
+    merged = []
+    for start, end in intervals:
+        if not merged or start > merged[-1][1]:
+            merged.append([start, end])
+        else:
+            merged[-1][1] = max(merged[-1][1], end)
+    return merged`},
+      {type:"py", name:"Daily temperatures", note:"Monotonic decreasing stack of unresolved indices.", code:`def daily_temperatures(temps):
+    ans = [0] * len(temps)
+    stack = []
+    for i, temp in enumerate(temps):
+        while stack and temps[stack[-1]] < temp:
+            j = stack.pop()
+            ans[j] = i - j
+        stack.append(i)
+    return ans`},
+      {type:"py", name:"Queue with two stacks", note:"Amortized O(1) enqueue and dequeue.", code:`class Queue:
+    def __init__(self):
+        self.inbox = []
+        self.outbox = []
+
+    def push(self, x):
+        self.inbox.append(x)
+
+    def pop(self):
+        if not self.outbox:
+            while self.inbox:
+                self.outbox.append(self.inbox.pop())
+        return self.outbox.pop()`},
+      {type:"py", name:"Insert interval", note:"Copy before, merge overlaps, copy after.", code:`def insert_interval(intervals, new_interval):
+    out = []
+    i = 0
+    while i < len(intervals) and intervals[i][1] < new_interval[0]:
+        out.append(intervals[i]); i += 1
+    while i < len(intervals) and intervals[i][0] <= new_interval[1]:
+        new_interval[0] = min(new_interval[0], intervals[i][0])
+        new_interval[1] = max(new_interval[1], intervals[i][1])
+        i += 1
+    return out + [new_interval] + intervals[i:]`},
+      {type:"sql", name:"7-day moving average", note:"Use ROWS when each row is one day.", code:`SELECT day,
+       revenue,
+       AVG(revenue) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS avg_7d
+FROM daily_revenue;`},
+      {type:"sql", name:"Cumulative percent of total", note:"Combine a running sum with a total window.", code:`SELECT day,
+       revenue,
+       SUM(revenue) OVER (ORDER BY day) /
+       NULLIF(SUM(revenue) OVER (), 0) AS cumulative_pct
+FROM daily_revenue
+ORDER BY day;`},
+      {type:"sql", name:"Overlapping subscription intervals", note:"Two ranges overlap if each starts before the other ends.", code:`SELECT a.user_id AS user_a,
+       b.user_id AS user_b
+FROM subscriptions a
+JOIN subscriptions b
+  ON a.user_id < b.user_id
+ AND a.start_date <= b.end_date
+ AND b.start_date <= a.end_date;`}
+    ]
+  },
+  {
+    n:"07", id:"day7", t:"Trees & Self-Joins", topics:"Tree traversal, BST validation, hierarchy SQL, gaps and islands", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Trees test recursive boundaries; self-joins test whether you understand table aliases and hierarchy.",
+    examples:[
+      {type:"py", name:"In-order traversal", note:"For a BST, in-order returns sorted values.", code:`def inorder(root):
+    if not root:
+        return []
+    return inorder(root.left) + [root.val] + inorder(root.right)`},
+      {type:"py", name:"Validate BST", note:"Carry valid lower and upper bounds down the tree.", code:`def is_valid_bst(root):
+    def dfs(node, low, high):
+        if not node:
+            return True
+        if not (low < node.val < high):
+            return False
+        return dfs(node.left, low, node.val) and dfs(node.right, node.val, high)
+    return dfs(root, float("-inf"), float("inf"))`},
+      {type:"py", name:"Maximum depth", note:"Depth is one plus the deeper subtree.", code:`def max_depth(root):
+    if not root:
+        return 0
+    return 1 + max(max_depth(root.left), max_depth(root.right))`},
+      {type:"py", name:"Tree diameter", note:"At each node, left height plus right height is a candidate diameter.", code:`def diameter(root):
+    best = 0
+    def height(node):
+        nonlocal best
+        if not node:
+            return 0
+        left = height(node.left)
+        right = height(node.right)
+        best = max(best, left + right)
+        return 1 + max(left, right)
+    height(root)
+    return best`},
+      {type:"py", name:"Level-order traversal", note:"BFS visits tree levels in order.", code:`from collections import deque
+
+def level_order(root):
+    if not root:
+        return []
+    q, out = deque([root]), []
+    while q:
+        level = []
+        for _ in range(len(q)):
+            node = q.popleft()
+            level.append(node.val)
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+        out.append(level)
+    return out`},
+      {type:"sql", name:"Employee manager self-join", note:"Alias the same table for employee and manager roles.", code:`SELECT e.employee_id,
+       e.name AS employee_name,
+       m.name AS manager_name
+FROM employees e
+LEFT JOIN employees m
+  ON m.employee_id = e.manager_id;`},
+      {type:"sql", name:"Gaps and islands by date", note:"Subtract row number to assign consecutive dates to the same island.", code:`WITH numbered AS (
+  SELECT user_id,
+         activity_date,
+         activity_date - ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY activity_date)::int AS grp
+  FROM activity
+)
+SELECT user_id, MIN(activity_date) AS start_date, MAX(activity_date) AS end_date
+FROM numbered
+GROUP BY user_id, grp;`},
+      {type:"sql", name:"Direct reports count", note:"Group on the manager side of a self-relationship.", code:`SELECT m.employee_id,
+       m.name,
+       COUNT(e.employee_id) AS direct_reports
+FROM employees m
+LEFT JOIN employees e
+  ON e.manager_id = m.employee_id
+GROUP BY m.employee_id, m.name;`}
+    ]
+  },
+  {
+    n:"08", id:"day8", t:"Graphs & Retention", topics:"BFS, DFS, components, shortest paths, retention SQL", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Traversal code plus analytics SQL for user-return behavior.",
+    examples:[
+      {type:"py", name:"Number of islands", note:"Flood-fill each unseen land cell once.", code:`def num_islands(grid):
+    rows, cols = len(grid), len(grid[0])
+    def dfs(r, c):
+        if r < 0 or c < 0 or r == rows or c == cols or grid[r][c] != "1":
+            return
+        grid[r][c] = "0"
+        for dr, dc in [(1,0), (-1,0), (0,1), (0,-1)]:
+            dfs(r + dr, c + dc)
+    count = 0
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1":
+                count += 1
+                dfs(r, c)
+    return count`},
+      {type:"py", name:"BFS shortest path", note:"In an unweighted graph, BFS gives the fewest edges.", code:`from collections import deque
+
+def shortest_path(graph, start, target):
+    q = deque([(start, 0)])
+    seen = {start}
+    while q:
+        node, dist = q.popleft()
+        if node == target:
+            return dist
+        for nxt in graph.get(node, []):
+            if nxt not in seen:
+                seen.add(nxt)
+                q.append((nxt, dist + 1))
+    return -1`},
+      {type:"py", name:"Connected components", note:"Each DFS marks one component.", code:`def connected_components(graph):
+    seen, comps = set(), []
+    def dfs(node, comp):
+        seen.add(node)
+        comp.append(node)
+        for nxt in graph.get(node, []):
+            if nxt not in seen:
+                dfs(nxt, comp)
+    for node in graph:
+        if node not in seen:
+            comp = []
+            dfs(node, comp)
+            comps.append(comp)
+    return comps`},
+      {type:"py", name:"Course schedule", note:"Kahn's algorithm detects whether all nodes can be processed.", code:`from collections import defaultdict, deque
+
+def can_finish(num_courses, prerequisites):
+    graph = defaultdict(list)
+    indegree = [0] * num_courses
+    for course, prereq in prerequisites:
+        graph[prereq].append(course)
+        indegree[course] += 1
+    q = deque(i for i, d in enumerate(indegree) if d == 0)
+    taken = 0
+    while q:
+        node = q.popleft()
+        taken += 1
+        for nxt in graph[node]:
+            indegree[nxt] -= 1
+            if indegree[nxt] == 0:
+                q.append(nxt)
+    return taken == num_courses`},
+      {type:"py", name:"Clone graph", note:"Map original nodes to cloned nodes to handle cycles.", code:`def clone_graph(node):
+    if not node:
+        return None
+    clones = {}
+    def dfs(cur):
+        if cur in clones:
+            return clones[cur]
+        copy = Node(cur.val)
+        clones[cur] = copy
+        copy.neighbors = [dfs(n) for n in cur.neighbors]
+        return copy
+    return dfs(node)`},
+      {type:"sql", name:"Day-7 retention", note:"Retained users have activity exactly seven days after signup.", code:`SELECT s.signup_date,
+       COUNT(DISTINCT s.user_id) AS cohort_users,
+       COUNT(DISTINCT a.user_id) AS retained_users,
+       COUNT(DISTINCT a.user_id)::float / NULLIF(COUNT(DISTINCT s.user_id), 0) AS retention_d7
+FROM signups s
+LEFT JOIN activity a
+  ON a.user_id = s.user_id
+ AND a.activity_date = s.signup_date + INTERVAL '7 day'
+GROUP BY s.signup_date;`},
+      {type:"sql", name:"New vs returning users", note:"Compare current activity month with each user's first activity month.", code:`WITH first_seen AS (
+  SELECT user_id, DATE_TRUNC('month', MIN(activity_date)) AS first_month
+  FROM activity
+  GROUP BY user_id
+)
+SELECT DATE_TRUNC('month', a.activity_date) AS month,
+       COUNT(DISTINCT CASE WHEN f.first_month = DATE_TRUNC('month', a.activity_date) THEN a.user_id END) AS new_users,
+       COUNT(DISTINCT CASE WHEN f.first_month < DATE_TRUNC('month', a.activity_date) THEN a.user_id END) AS returning_users
+FROM activity a
+JOIN first_seen f USING (user_id)
+GROUP BY 1;`},
+      {type:"sql", name:"Weekly active users", note:"Simple metric grain for retention diagnostics.", code:`SELECT DATE_TRUNC('week', activity_date) AS week,
+       COUNT(DISTINCT user_id) AS wau
+FROM activity
+GROUP BY 1
+ORDER BY 1;`}
+    ]
+  },
+  {
+    n:"09", id:"day9", t:"Dynamic Programming & Cohorts", topics:"1D DP, memoization, tabulation, cohort grids", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Define state clearly in Python and define cohort grain clearly in SQL.",
+    examples:[
+      {type:"py", name:"House robber", note:"Only the previous two states are needed.", code:`def rob(nums):
+    prev2 = prev1 = 0
+    for x in nums:
+        prev2, prev1 = prev1, max(prev1, prev2 + x)
+    return prev1`},
+      {type:"py", name:"Coin change", note:"Unbounded knapsack over amounts.", code:`def coin_change(coins, amount):
+    dp = [float("inf")] * (amount + 1)
+    dp[0] = 0
+    for a in range(1, amount + 1):
+        for coin in coins:
+            if coin <= a:
+                dp[a] = min(dp[a], dp[a - coin] + 1)
+    return -1 if dp[amount] == float("inf") else dp[amount]`},
+      {type:"py", name:"Longest increasing subsequence", note:"Patience sorting keeps candidate tails.", code:`import bisect
+
+def length_of_lis(nums):
+    tails = []
+    for x in nums:
+        i = bisect.bisect_left(tails, x)
+        if i == len(tails):
+            tails.append(x)
+        else:
+            tails[i] = x
+    return len(tails)`},
+      {type:"py", name:"Decode ways", note:"State is the number of ways to parse up to each index.", code:`def num_decodings(s):
+    if not s or s[0] == "0":
+        return 0
+    prev2, prev1 = 1, 1
+    for i in range(1, len(s)):
+        cur = 0
+        if s[i] != "0":
+            cur += prev1
+        if 10 <= int(s[i-1:i+1]) <= 26:
+            cur += prev2
+        prev2, prev1 = prev1, cur
+    return prev1`},
+      {type:"py", name:"Maximum subarray", note:"Kadane's algorithm chooses extend vs restart.", code:`def max_subarray(nums):
+    best = cur = nums[0]
+    for x in nums[1:]:
+        cur = max(x, cur + x)
+        best = max(best, cur)
+    return best`},
+      {type:"sql", name:"Monthly cohort retention grid", note:"Period number is activity month minus cohort month.", code:`WITH cohorts AS (
+  SELECT user_id, DATE_TRUNC('month', MIN(signup_date)) AS cohort_month
+  FROM users
+  GROUP BY user_id
+),
+activity_months AS (
+  SELECT DISTINCT user_id, DATE_TRUNC('month', activity_date) AS activity_month
+  FROM activity
+)
+SELECT c.cohort_month,
+       ((EXTRACT(YEAR FROM a.activity_month) - EXTRACT(YEAR FROM c.cohort_month)) * 12
+        + EXTRACT(MONTH FROM a.activity_month) - EXTRACT(MONTH FROM c.cohort_month)) AS period,
+       COUNT(DISTINCT a.user_id) AS active_users
+FROM cohorts c
+JOIN activity_months a USING (user_id)
+GROUP BY 1, 2;`},
+      {type:"sql", name:"Cohort revenue curve", note:"Cumulative revenue by cohort and period.", code:`WITH cohorts AS (
+  SELECT user_id, DATE_TRUNC('month', MIN(signup_date)) AS cohort_month
+  FROM users GROUP BY user_id
+)
+SELECT c.cohort_month,
+       DATE_TRUNC('month', o.order_date) AS revenue_month,
+       SUM(SUM(o.amount)) OVER (
+         PARTITION BY c.cohort_month
+         ORDER BY DATE_TRUNC('month', o.order_date)
+       ) AS cumulative_revenue
+FROM cohorts c
+JOIN orders o USING (user_id)
+GROUP BY 1, 2;`},
+      {type:"sql", name:"Cohort size", note:"Always keep denominator visible.", code:`SELECT DATE_TRUNC('month', signup_date) AS cohort_month,
+       COUNT(DISTINCT user_id) AS cohort_size
+FROM users
+GROUP BY 1
+ORDER BY 1;`}
+    ]
+  },
+  {
+    n:"10", id:"day10", t:"2D DP, Greedy & Funnels", topics:"Grid DP, edit distance, greedy scans, funnel conversion", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"2D tables clarify recurrence; funnels clarify ordered behavior.",
+    examples:[
+      {type:"py", name:"Unique paths", note:"Grid DP can be compressed to one row.", code:`def unique_paths(m, n):
+    dp = [1] * n
+    for _ in range(1, m):
+        for c in range(1, n):
+            dp[c] += dp[c - 1]
+    return dp[-1]`},
+      {type:"py", name:"Minimum path sum", note:"Each cell depends on top and left.", code:`def min_path_sum(grid):
+    rows, cols = len(grid), len(grid[0])
+    dp = [float("inf")] * cols
+    dp[0] = 0
+    for r in range(rows):
+        for c in range(cols):
+            left = dp[c - 1] if c else float("inf")
+            up = dp[c]
+            if r == 0 and c == 0:
+                dp[c] = grid[r][c]
+            else:
+                dp[c] = grid[r][c] + min(left, up)
+    return dp[-1]`},
+      {type:"py", name:"Edit distance", note:"Classic 2D DP over prefixes.", code:`def edit_distance(a, b):
+    dp = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]
+    for i in range(len(a) + 1): dp[i][0] = i
+    for j in range(len(b) + 1): dp[0][j] = j
+    for i in range(1, len(a) + 1):
+        for j in range(1, len(b) + 1):
+            if a[i - 1] == b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+    return dp[-1][-1]`},
+      {type:"py", name:"Jump game", note:"Track the farthest reachable index.", code:`def can_jump(nums):
+    farthest = 0
+    for i, jump in enumerate(nums):
+        if i > farthest:
+            return False
+        farthest = max(farthest, i + jump)
+    return True`},
+      {type:"py", name:"Gas station", note:"If total gas is enough, reset candidate start when tank drops below zero.", code:`def can_complete_circuit(gas, cost):
+    total = tank = start = 0
+    for i, (g, c) in enumerate(zip(gas, cost)):
+        diff = g - c
+        total += diff
+        tank += diff
+        if tank < 0:
+            start = i + 1
+            tank = 0
+    return start if total >= 0 else -1`},
+      {type:"sql", name:"Three-step funnel", note:"Conditional distinct counts at user grain.", code:`SELECT COUNT(DISTINCT user_id) AS viewed,
+       COUNT(DISTINCT CASE WHEN added_to_cart_at IS NOT NULL THEN user_id END) AS added,
+       COUNT(DISTINCT CASE WHEN purchased_at IS NOT NULL THEN user_id END) AS purchased
+FROM user_funnel;`},
+      {type:"sql", name:"Step conversion rates", note:"Represent steps as rows, then use LAG.", code:`WITH steps AS (
+  SELECT 1 AS step_order, 'view' AS step, COUNT(DISTINCT user_id) AS users FROM views
+  UNION ALL
+  SELECT 2, 'cart', COUNT(DISTINCT user_id) FROM carts
+  UNION ALL
+  SELECT 3, 'purchase', COUNT(DISTINCT user_id) FROM purchases
+)
+SELECT step,
+       users,
+       users::float / NULLIF(LAG(users) OVER (ORDER BY step_order), 0) AS step_conversion
+FROM steps;`},
+      {type:"sql", name:"Time to purchase", note:"Join first view to first later purchase.", code:`WITH first_view AS (
+  SELECT user_id, MIN(event_time) AS viewed_at
+  FROM events WHERE event_name = 'view'
+  GROUP BY user_id
+),
+first_purchase AS (
+  SELECT user_id, MIN(event_time) AS purchased_at
+  FROM events WHERE event_name = 'purchase'
+  GROUP BY user_id
+)
+SELECT AVG(p.purchased_at - v.viewed_at) AS avg_time_to_purchase
+FROM first_view v
+JOIN first_purchase p USING (user_id)
+WHERE p.purchased_at >= v.viewed_at;`}
+    ]
+  },
+  {
+    n:"11", id:"day11", t:"Pandas, NumPy & Business Metrics", topics:"Vectorization, groupby, joins, rolling windows, churn", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"The data scientist layer: manipulate data frames cleanly and mirror the logic in SQL.",
+    examples:[
+      {type:"py", name:"Pandas groupby aggregation", note:"Named aggregations produce clean column names.", code:`def revenue_by_country(orders, users):
+    df = orders.merge(users[["user_id", "country"]], on="user_id", how="left")
+    return (
+        df.groupby("country", as_index=False)
+          .agg(revenue=("amount", "sum"), orders=("order_id", "nunique"))
+    )`},
+      {type:"py", name:"Vectorized conditional column", note:"Avoid row-wise apply for simple conditions.", code:`import numpy as np
+
+def add_value_segment(df):
+    df = df.copy()
+    df["segment"] = np.where(df["revenue"] >= 1000, "high", "standard")
+    return df`},
+      {type:"py", name:"Rolling mean in pandas", note:"Sort before rolling time-series metrics.", code:`def add_rolling_revenue(daily):
+    daily = daily.sort_values("day").copy()
+    daily["revenue_7d_avg"] = daily["revenue"].rolling(7, min_periods=1).mean()
+    return daily`},
+      {type:"py", name:"Pivot cohort table", note:"Turn long retention rows into a cohort grid.", code:`def retention_pivot(retention):
+    return retention.pivot_table(
+        index="cohort_month",
+        columns="period",
+        values="retention",
+        aggfunc="mean"
+    )`},
+      {type:"py", name:"NumPy standardization", note:"Fit statistics on train data, then transform.", code:`import numpy as np
+
+def standardize_train_test(x_train, x_test):
+    mean = x_train.mean(axis=0)
+    std = x_train.std(axis=0)
+    std = np.where(std == 0, 1, std)
+    return (x_train - mean) / std, (x_test - mean) / std`},
+      {type:"sql", name:"DAU to MAU ratio", note:"Align daily users with a rolling 30-day active base.", code:`WITH days AS (
+  SELECT DISTINCT activity_date AS day FROM activity
+)
+SELECT d.day,
+       COUNT(DISTINCT CASE WHEN a.activity_date = d.day THEN a.user_id END) AS dau,
+       COUNT(DISTINCT a.user_id) AS mau_30d,
+       COUNT(DISTINCT CASE WHEN a.activity_date = d.day THEN a.user_id END)::float /
+       NULLIF(COUNT(DISTINCT a.user_id), 0) AS dau_mau
+FROM days d
+JOIN activity a
+  ON a.activity_date BETWEEN d.day - INTERVAL '29 day' AND d.day
+GROUP BY d.day;`},
+      {type:"sql", name:"Monthly churn", note:"Users active last month but absent this month.", code:`WITH monthly AS (
+  SELECT DISTINCT user_id, DATE_TRUNC('month', activity_date) AS month
+  FROM activity
+)
+SELECT last.month + INTERVAL '1 month' AS month,
+       COUNT(DISTINCT last.user_id) AS previous_active,
+       COUNT(DISTINCT CASE WHEN curr.user_id IS NULL THEN last.user_id END) AS churned
+FROM monthly last
+LEFT JOIN monthly curr
+  ON curr.user_id = last.user_id
+ AND curr.month = last.month + INTERVAL '1 month'
+GROUP BY 1;`},
+      {type:"sql", name:"ARPU by month", note:"Revenue divided by active users at the same grain.", code:`WITH monthly_revenue AS (
+  SELECT DATE_TRUNC('month', order_date) AS month, SUM(amount) AS revenue
+  FROM orders
+  GROUP BY 1
+),
+monthly_active AS (
+  SELECT DATE_TRUNC('month', activity_date) AS month, COUNT(DISTINCT user_id) AS active_users
+  FROM activity
+  GROUP BY 1
+)
+SELECT r.month,
+       r.revenue / NULLIF(a.active_users, 0) AS arpu
+FROM monthly_revenue r
+JOIN monthly_active a USING (month);`}
+    ]
+  },
+  {
+    n:"12", id:"day12", t:"ML Coding & Advanced SQL", topics:"Metrics from scratch, sampling, gradient steps, NTILE, median", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Implement the math directly and show SQL segmentation without hiding behind libraries.",
+    examples:[
+      {type:"py", name:"Precision, recall, F1", note:"Use zero guards for degenerate predictions.", code:`def classification_metrics(y_true, y_pred):
+    tp = sum(t == 1 and p == 1 for t, p in zip(y_true, y_pred))
+    fp = sum(t == 0 and p == 1 for t, p in zip(y_true, y_pred))
+    fn = sum(t == 1 and p == 0 for t, p in zip(y_true, y_pred))
+    precision = tp / (tp + fp) if tp + fp else 0
+    recall = tp / (tp + fn) if tp + fn else 0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0
+    return {"precision": precision, "recall": recall, "f1": f1}`},
+      {type:"py", name:"Train-test split", note:"Shuffle indices with a reproducible seed.", code:`import numpy as np
+
+def train_test_split(x, y, test_size=0.2, seed=42):
+    rng = np.random.default_rng(seed)
+    idx = rng.permutation(len(x))
+    cut = int(len(x) * (1 - test_size))
+    train_idx, test_idx = idx[:cut], idx[cut:]
+    return x[train_idx], x[test_idx], y[train_idx], y[test_idx]`},
+      {type:"py", name:"One gradient descent step", note:"Vectorized linear regression update.", code:`import numpy as np
+
+def gradient_step(X, y, w, b, lr):
+    pred = X @ w + b
+    err = pred - y
+    dw = X.T @ err / len(y)
+    db = err.mean()
+    return w - lr * dw, b - lr * db`},
+      {type:"py", name:"K-means assignment step", note:"Compute all point-center distances at once.", code:`import numpy as np
+
+def assign_clusters(X, centers):
+    distances = ((X[:, None, :] - centers[None, :, :]) ** 2).sum(axis=2)
+    return distances.argmin(axis=1)`},
+      {type:"py", name:"Stratified sample indices", note:"Sample within each label to preserve class proportions.", code:`import numpy as np
+
+def stratified_sample(y, frac=0.2, seed=42):
+    rng = np.random.default_rng(seed)
+    selected = []
+    for label in np.unique(y):
+        idx = np.where(y == label)[0]
+        n = max(1, int(len(idx) * frac))
+        selected.extend(rng.choice(idx, size=n, replace=False))
+    return np.array(selected)`},
+      {type:"sql", name:"Quartile buckets", note:"NTILE is handy for segmentation.", code:`SELECT user_id,
+       revenue,
+       NTILE(4) OVER (ORDER BY revenue DESC) AS revenue_quartile
+FROM user_revenue;`},
+      {type:"sql", name:"Median with row numbers", note:"Works in engines without a MEDIAN aggregate.", code:`WITH ranked AS (
+  SELECT value,
+         ROW_NUMBER() OVER (ORDER BY value) AS rn,
+         COUNT(*) OVER () AS n
+  FROM measurements
+)
+SELECT AVG(value) AS median_value
+FROM ranked
+WHERE rn IN ((n + 1) / 2, (n + 2) / 2);`},
+      {type:"sql", name:"Z-score outliers", note:"Window stats let each row compare to the full distribution.", code:`SELECT user_id,
+       metric_value,
+       (metric_value - AVG(metric_value) OVER ()) /
+       NULLIF(STDDEV(metric_value) OVER (), 0) AS z_score
+FROM user_metrics;`}
+    ]
+  },
+  {
+    n:"13", id:"day13", t:"Mixed Hard Set", topics:"Caches, streams, rate limits, sessionization, attribution", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Practice ambiguous, design-flavored coding where the implementation and trade-off both matter.",
+    examples:[
+      {type:"py", name:"LRU cache with OrderedDict", note:"Move touched keys to the end; evict from the front.", code:`from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)`},
+      {type:"py", name:"Streaming top k", note:"Maintain counts, then read top k when needed.", code:`from collections import Counter
+
+class TopKStream:
+    def __init__(self):
+        self.counts = Counter()
+
+    def add(self, item):
+        self.counts[item] += 1
+
+    def top_k(self, k):
+        return self.counts.most_common(k)`},
+      {type:"py", name:"Token bucket rate limiter", note:"Refill based on elapsed time.", code:`import time
+
+class TokenBucket:
+    def __init__(self, capacity, refill_per_sec):
+        self.capacity = capacity
+        self.tokens = capacity
+        self.refill_per_sec = refill_per_sec
+        self.updated_at = time.time()
+
+    def allow(self):
+        now = time.time()
+        self.tokens = min(self.capacity, self.tokens + (now - self.updated_at) * self.refill_per_sec)
+        self.updated_at = now
+        if self.tokens >= 1:
+            self.tokens -= 1
+            return True
+        return False`},
+      {type:"py", name:"Reservoir sampling", note:"Uniform sample from a stream of unknown length.", code:`import random
+
+def reservoir_sample(stream, k):
+    sample = []
+    for i, item in enumerate(stream, start=1):
+        if i <= k:
+            sample.append(item)
+        else:
+            j = random.randint(1, i)
+            if j <= k:
+                sample[j - 1] = item
+    return sample`},
+      {type:"py", name:"Parse event log into sessions", note:"Start a new session after inactivity.", code:`from datetime import timedelta
+
+def sessionize(events, gap_minutes=30):
+    sessions, current = [], []
+    gap = timedelta(minutes=gap_minutes)
+    for event in sorted(events, key=lambda e: e["ts"]):
+        if current and event["ts"] - current[-1]["ts"] > gap:
+            sessions.append(current)
+            current = []
+        current.append(event)
+    if current:
+        sessions.append(current)
+    return sessions`},
+      {type:"sql", name:"Sessionization", note:"Flag new sessions, then cumulative-sum the flags.", code:`WITH ordered AS (
+  SELECT *,
+         LAG(event_time) OVER (PARTITION BY user_id ORDER BY event_time) AS prev_time
+  FROM events
+),
+flagged AS (
+  SELECT *,
+         CASE WHEN prev_time IS NULL OR event_time > prev_time + INTERVAL '30 minute' THEN 1 ELSE 0 END AS new_session
+  FROM ordered
+)
+SELECT *,
+       SUM(new_session) OVER (PARTITION BY user_id ORDER BY event_time) AS session_number
+FROM flagged;`},
+      {type:"sql", name:"First-touch attribution", note:"Rank touchpoints before purchase.", code:`WITH touches AS (
+  SELECT p.purchase_id,
+         m.channel,
+         ROW_NUMBER() OVER (PARTITION BY p.purchase_id ORDER BY m.touch_time) AS rn
+  FROM purchases p
+  JOIN marketing_touches m
+    ON m.user_id = p.user_id
+   AND m.touch_time <= p.purchase_time
+)
+SELECT channel, COUNT(*) AS attributed_purchases
+FROM touches
+WHERE rn = 1
+GROUP BY channel;`},
+      {type:"sql", name:"Last-touch attribution", note:"Change the order to descending for last touch.", code:`WITH touches AS (
+  SELECT p.purchase_id,
+         m.channel,
+         ROW_NUMBER() OVER (PARTITION BY p.purchase_id ORDER BY m.touch_time DESC) AS rn
+  FROM purchases p
+  JOIN marketing_touches m
+    ON m.user_id = p.user_id
+   AND m.touch_time <= p.purchase_time
+)
+SELECT channel, COUNT(*) AS attributed_purchases
+FROM touches
+WHERE rn = 1
+GROUP BY channel;`}
+    ]
+  },
+  {
+    n:"14", id:"day14", t:"Mock Interview & Review", topics:"Timed review, reusable templates, final SQL drills", py:"5 Python examples", sql:"3 SQL examples",
+    sub:"Finish with reusable interview templates and compact examples you can recall under pressure.",
+    examples:[
+      {type:"py", name:"Frequency template", note:"A reusable skeleton for counting problems.", code:`from collections import Counter
+
+def frequency_table(values):
+    counts = Counter(values)
+    return [{"value": value, "count": count} for value, count in counts.most_common()]`},
+      {type:"py", name:"Two-pointer template", note:"Works after sorting when the target relation is monotonic.", code:`def pair_exists_sorted(nums, target):
+    l, r = 0, len(nums) - 1
+    while l < r:
+        s = nums[l] + nums[r]
+        if s == target:
+            return True
+        if s < target:
+            l += 1
+        else:
+            r -= 1
+    return False`},
+      {type:"py", name:"BFS template", note:"Shortest unweighted traversal in one reusable pattern.", code:`from collections import deque
+
+def bfs_order(graph, start):
+    q = deque([start])
+    seen = {start}
+    order = []
+    while q:
+        node = q.popleft()
+        order.append(node)
+        for nxt in graph.get(node, []):
+            if nxt not in seen:
+                seen.add(nxt)
+                q.append(nxt)
+    return order`},
+      {type:"py", name:"Memoization template", note:"Use when recursive states repeat.", code:`from functools import lru_cache
+
+def count_ways(n):
+    @lru_cache(None)
+    def dp(i):
+        if i == 0:
+            return 1
+        if i < 0:
+            return 0
+        return dp(i - 1) + dp(i - 2)
+    return dp(n)`},
+      {type:"py", name:"Pandas metric check", note:"A quick sanity table for interview case data.", code:`def metric_snapshot(df):
+    return {
+        "rows": len(df),
+        "users": df["user_id"].nunique(),
+        "revenue": df["amount"].sum(),
+        "aov": df["amount"].mean()
+    }`},
+      {type:"sql", name:"Window drill", note:"Rank, previous value, and running total in one query.", code:`SELECT user_id,
+       order_date,
+       amount,
+       ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY order_date) AS order_number,
+       LAG(amount) OVER (PARTITION BY user_id ORDER BY order_date) AS previous_amount,
+       SUM(amount) OVER (PARTITION BY user_id ORDER BY order_date) AS running_user_revenue
+FROM orders;`},
+      {type:"sql", name:"Retention drill", note:"Keep cohort, numerator, and denominator together.", code:`SELECT s.signup_date,
+       COUNT(DISTINCT s.user_id) AS cohort_size,
+       COUNT(DISTINCT a.user_id) AS retained_users,
+       COUNT(DISTINCT a.user_id)::float / NULLIF(COUNT(DISTINCT s.user_id), 0) AS retention
+FROM signups s
+LEFT JOIN activity a
+  ON a.user_id = s.user_id
+ AND a.activity_date BETWEEN s.signup_date + INTERVAL '1 day'
+                         AND s.signup_date + INTERVAL '7 day'
+GROUP BY s.signup_date;`},
+      {type:"sql", name:"Final metric QA", note:"Compare row counts, users, and value totals before trusting a result.", code:`SELECT COUNT(*) AS rows,
+       COUNT(DISTINCT user_id) AS users,
+       SUM(amount) AS total_amount,
+       MIN(order_date) AS first_order,
+       MAX(order_date) AS last_order
+FROM orders
+WHERE status = 'paid';`}
+    ]
+  }
+];
+
+const grid = document.getElementById("grid");
+const escapeHtml = value => String(value)
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;");
+
+days.forEach(day => {
+  const card = document.createElement("div");
+  card.className = "day reveal";
+  card.id = day.id;
+  card.setAttribute("role", "button");
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("aria-expanded", "false");
+  card.innerHTML = `
+    <div class="num">${day.n}</div>
+    <h4>${day.t}</h4>
+    <div class="topics">${day.topics}</div>
+    <div class="meta"><span>${day.py}</span><span>${day.sql}</span></div>
+    <span class="open">Open examples →</span>`;
+
+  const detail = document.createElement("div");
+  detail.className = "detail";
+  detail.id = `${day.id}-detail`;
+  card.setAttribute("aria-controls", detail.id);
+  detail.innerHTML = `<div class="panel">
+    <h5>Day ${day.n} — ${day.t}</h5>
+    <div class="sub">${day.sub}</div>
+    <div class="examples">
+      ${day.examples.map(example => `
+        <article class="example">
+          <div class="example-head">
+            <div class="example-title">${example.name}</div>
+            <span class="tag ${example.type}">${example.type === "py" ? "Python" : "SQL"}</span>
+          </div>
+          <p class="note">${example.note}</p>
+          <pre><code>${escapeHtml(example.code)}</code></pre>
+        </article>`).join("")}
+    </div>
+  </div>`;
+
+  const toggleDay = () => {
+    const open = detail.classList.contains("show");
+    document.querySelectorAll(".detail.show").forEach(el => el.classList.remove("show"));
+    document.querySelectorAll('.day[aria-expanded="true"]').forEach(el => el.setAttribute("aria-expanded", "false"));
+    if (!open) {
+      detail.classList.add("show");
+      card.setAttribute("aria-expanded", "true");
+      setTimeout(() => detail.scrollIntoView({ behavior: "smooth", block: "nearest" }), 120);
+    }
+  };
+  card.addEventListener("click", toggleDay);
+  card.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleDay();
+    }
   });
+  grid.appendChild(card);
+  grid.appendChild(detail);
+});
 
-  // scroll reveal
-  const io = new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.12});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(Math.min(i,6)*60)+'ms'; io.observe(el); });
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("in");
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: .08 });
+document.querySelectorAll(".reveal").forEach((el, i) => {
+  el.style.transitionDelay = `${Math.min(i, 6) * 55}ms`;
+  io.observe(el);
+});
 </script>
-
 </body>
 </html>
