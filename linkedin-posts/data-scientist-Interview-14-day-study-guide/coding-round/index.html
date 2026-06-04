@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Data Scientist Coding Interview — 14-Day Study Guide | Lokesh Venkatesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&amp;family=Spline+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0e10;
+    --bg-soft:#151517;
+    --card:#161618;
+    --card-hover:#1c1c1f;
+    --line:#26262a;
+    --line-soft:#1f1f22;
+    --text:#ece9e2;
+    --muted:#9a958c;
+    --faint:#6a665e;
+    --accent:#e8a13a;
+    --accent-soft:#f0bd6e;
+    --accent-dim:rgba(232,161,58,.12);
+    --green:#7fae6f;
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Spline Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",monospace;
+    --maxw:1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(720px 480px at 78% -8%, rgba(232,161,58,.10), transparent 60%),
+      radial-gradient(560px 420px at 8% 4%, rgba(232,161,58,.05), transparent 55%);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- top bar ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(12px);
+    background:rgba(14,14,16,.72);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:var(--maxw);margin:0 auto}
+  .brand{display:flex;align-items:center;gap:12px}
+  .mono-badge{
+    width:38px;height:38px;border-radius:9px;
+    background:linear-gradient(145deg,var(--accent),#c47e1d);
+    color:#1a1308;display:grid;place-items:center;
+    font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.5px;
+    box-shadow:0 4px 16px rgba(232,161,58,.28);
+  }
+  .brand .who{display:flex;flex-direction:column;line-height:1.15}
+  .brand .who b{font-size:14px;font-weight:600;letter-spacing:.2px}
+  .brand .who span{font-size:11.5px;color:var(--faint);letter-spacing:.4px}
+  .nav-tag{
+    font-size:11px;color:var(--muted);font-family:var(--mono);
+    border:1px solid var(--line);border-radius:100px;padding:6px 14px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:84px 0 56px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--accent-soft);
+    border:1px solid var(--line);border-radius:100px;padding:7px 15px;margin-bottom:30px;
+    background:var(--accent-dim);
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  h1.title{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.02em;
+    max-width:14ch;
+  }
+  h1.title em{font-style:italic;color:var(--accent);font-weight:400}
+  .lede{
+    margin-top:26px;max-width:60ch;color:var(--muted);font-size:18px;line-height:1.65;
+  }
+  .stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px}
+  .stats .s{display:flex;align-items:baseline;gap:9px}
+  .stats .s b{font-family:var(--serif);font-size:20px;color:var(--text)}
+  .stats .s span{font-size:13px;color:var(--faint)}
+
+  /* ---------- featured ---------- */
+  .featured{
+    display:block;margin:44px 0 8px;
+    border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    background:linear-gradient(135deg,rgba(232,161,58,.10),rgba(232,161,58,.02));
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s;
+  }
+  .featured:hover{transform:translateY(-3px);border-color:rgba(232,161,58,.45)}
+  .featured .inner{padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .featured .tags{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.4px;padding:5px 11px;border-radius:100px;border:1px solid var(--line)}
+  .pill.hot{background:var(--accent);color:#1a1308;border-color:transparent;font-weight:500}
+  .featured h2{font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);font-weight:500;line-height:1.1}
+  .featured p{color:var(--muted);margin-top:8px;max-width:48ch;font-size:15px}
+  .go{
+    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+    font-weight:600;font-size:15px;color:var(--accent-soft);
+  }
+  .go .arrow{transition:transform .3s}
+  .featured:hover .go .arrow{transform:translateX(5px)}
+
+  /* ---------- section label ---------- */
+  .seclabel{
+    display:flex;align-items:center;gap:16px;margin:64px 0 26px;
+  }
+  .seclabel h3{font-family:var(--mono);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);font-weight:500}
+  .seclabel .rule{flex:1;height:1px;background:var(--line)}
+
+  /* ---------- day grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .day{
+    position:relative;border:1px solid var(--line);border-radius:16px;
+    background:var(--card);padding:24px 24px 22px;cursor:pointer;
+    transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s,background .3s;
+    overflow:hidden;
+  }
+  .day::after{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--accent);transform:scaleY(0);transform-origin:top;
+    transition:transform .35s ease;
+  }
+  .day:hover{transform:translateY(-3px);border-color:#33332f;background:var(--card-hover)}
+  .day:hover::after{transform:scaleY(1)}
+  .day .num{
+    font-family:var(--serif);font-size:30px;color:var(--accent);line-height:1;font-weight:500;
+    display:flex;align-items:baseline;gap:7px;
+  }
+  .day .num small{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.5px}
+  .day h4{font-size:17px;font-weight:600;margin:14px 0 7px;letter-spacing:-.01em}
+  .day .topics{color:var(--muted);font-size:13.5px;line-height:1.55}
+  .day .meta{
+    display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10.5px;color:var(--faint);
+  }
+  .day .meta span{border:1px solid var(--line-soft);border-radius:6px;padding:4px 9px}
+  .day .open{
+    margin-top:16px;font-size:13px;font-weight:600;color:var(--accent-soft);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .day .open .arrow{transition:transform .3s}
+  .day:hover .open .arrow{transform:translateX(4px)}
+
+  /* ---------- detail panel (expand) ---------- */
+  .detail{
+    grid-column:1/-1;
+    max-height:0;opacity:0;overflow:hidden;
+    border-radius:16px;
+    transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
+    margin:0;
+  }
+  .detail.show{max-height:1400px;opacity:1;margin:-4px 0 8px}
+  .detail .panel{
+    border:1px solid rgba(232,161,58,.3);border-radius:16px;
+    background:linear-gradient(180deg,rgba(232,161,58,.05),transparent 40%),var(--bg-soft);
+    padding:30px 32px;
+  }
+  .detail h5{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:4px}
+  .detail .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+  .qblock{border-top:1px solid var(--line-soft);padding:18px 0}
+  .qblock:first-of-type{border-top:none;padding-top:4px}
+  .qhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .qhead .tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.5px;
+    padding:3px 8px;border-radius:5px;font-weight:500;
+  }
+  .qhead .tag.py{background:rgba(127,174,111,.16);color:var(--green);border:1px solid rgba(127,174,111,.3)}
+  .qhead .tag.sql{background:var(--accent-dim);color:var(--accent-soft);border:1px solid rgba(232,161,58,.3)}
+  .qhead b{font-size:15px;font-weight:600}
+  .qblock p{color:var(--muted);font-size:14px;margin-left:2px}
+  .qblock code{font-family:var(--mono);font-size:12.5px;background:#0c0c0d;border:1px solid var(--line-soft);border-radius:5px;padding:1px 6px;color:var(--accent-soft)}
+
+  /* ---------- outcomes ---------- */
+  .outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .out{
+    border:1px solid var(--line);border-radius:14px;background:var(--card);
+    padding:24px;transition:border-color .3s,transform .3s;
+  }
+  .out:hover{border-color:#33332f;transform:translateY(-2px)}
+  .out .ic{font-size:24px;margin-bottom:14px;display:block}
+  .out b{display:block;font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:6px}
+  .out p{color:var(--muted);font-size:13.5px;line-height:1.55}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line-soft);margin-top:80px;padding:40px 0 60px}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot .tags{display:flex;gap:8px;flex-wrap:wrap}
+  .foot .tags span{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .foot .by{color:var(--faint);font-size:13px}
+  .foot .by b{color:var(--muted);font-weight:600}
+
+  /* reveal anim */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr}
+    .outcomes{grid-template-columns:1fr}
+    .hero{padding:56px 0 40px}
+    .nav-tag{display:none}
+    .featured .inner{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <div class="mono-badge">LV</div>
+      <div class="who">
+        <b>Lokesh Venkatesh</b>
+        <span>Senior DS Coding Interview · 14-Day Study Guide</span>
+      </div>
+    </div>
+    <div class="nav-tag">14 days · coding round</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow reveal"><span class="dot"></span> Senior Data Scientist · Coding Interview</div>
+    <h1 class="title reveal">The 14-Day Coding <em>Interview Sprint</em></h1>
+    <p class="lede reveal">From fundamentals to production-grade problem solving. Three Python prompts and two SQL prompts every day, with the pattern, complexity cue, and common trap to watch for. Work through in order or jump to the topic you need.</p>
+    <div class="stats reveal">
+      <div class="s"><b>14</b><span>days</span></div>
+      <div class="s"><b>42</b><span>Python prompts</span></div>
+      <div class="s"><b>28</b><span>SQL prompts</span></div>
+      <div class="s"><b>70</b><span>total prompts</span></div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <a class="featured reveal" href="#day1">
+    <div class="inner">
+      <div>
+        <div class="tags">
+          <span class="pill hot">⚡ Day 01 · Start here</span>
+          <span class="pill">Foundations</span>
+          <span class="pill">Fully worked</span>
+        </div>
+        <h2>Foundations: Lists, Strings, Dicts &amp; Joins</h2>
+        <p>The warm-up filter round at top companies. Speed plus crisp trade-off reasoning is what separates senior from mid-level here.</p>
+      </div>
+      <span class="go">Open Day 1 <span class="arrow">→</span></span>
+    </div>
+  </a>
+
+  <!-- DAY GRID -->
+  <div class="seclabel reveal"><h3>The 14-Day Plan</h3><div class="rule"></div></div>
+  <div class="grid" id="grid"></div>
+
+  <!-- OUTCOMES -->
+  <div class="seclabel reveal"><h3>What you'll come away with</h3><div class="rule"></div></div>
+  <div class="outcomes">
+    <div class="out reveal"><span class="ic">🧠</span><b>Pattern fluency</b><p>Recognize two-pointer, sliding-window, hashmap, and DP patterns on sight instead of re-deriving them under pressure.</p></div>
+    <div class="out reveal"><span class="ic">⚙️</span><b>Optimization instinct</b><p>Always start brute-force, then articulate the exact trade-off that earns the optimal solution.</p></div>
+    <div class="out reveal"><span class="ic">📊</span><b>SQL for analytics</b><p>Joins, window functions, CTEs, ranking, retention and cohort queries — the real interview surface.</p></div>
+    <div class="out reveal"><span class="ic">🚀</span><b>Complexity precision</b><p>State time and space for every approach without hand-waving — the senior signal interviewers grade hardest.</p></div>
+    <div class="out reveal"><span class="ic">🔍</span><b>Mistake awareness</b><p>Know the quiet traps — quadratic <code>.count()</code>, LEFT JOIN collapsing to INNER, WHERE vs HAVING.</p></div>
+    <div class="out reveal"><span class="ic">⚡</span><b>DS coding edge</b><p>Pandas/NumPy-style manipulation and ML metrics from scratch — the part generic LeetCode prep skips.</p></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div class="tags"><span>#DataScience</span><span>#Python</span><span>#SQL</span><span>#InterviewPrep</span><span>#MachineLearning</span></div>
+    <div class="by">Crafted in the style of <b>Lokesh Venkatesh</b> · Interactive Guide</div>
+  </div>
+</footer>
+
+<script>
+  const days = [
+    {n:"01", id:"day1", t:"Foundations", topics:"Lists, strings, dictionaries, sets · basic joins & aggregations", py:"Hash maps · frequency counts", sql:"Joins · GROUP BY / HAVING",
+      detail:{title:"Day 1 — Foundations", sub:"Baseline fluency. The filter round — solve fast, reason out loud.",
+        qs:[
+          {type:"py",name:"Two Sum",d:"One-pass hash map: store <code>value→index</code>, check complement before inserting. O(n) time, O(n) space — beats the O(n²) nested scan."},
+          {type:"py",name:"Valid Anagram",d:"<code>Counter(s)==Counter(t)</code> after a length guard. O(n) vs the O(n log n) sort approach."},
+          {type:"py",name:"First Non-Repeating Char",d:"Pre-count, then scan once for count==1. Avoid the <code>.count()</code>-in-a-loop quadratic trap."},
+          {type:"sql",name:"Users With Zero Orders",d:"LEFT JOIN + <code>COUNT(o.order_id)</code> — counting the right-side key returns 0, not 1, for unmatched users."},
+          {type:"sql",name:"Revenue by Country",d:"Filter in WHERE before GROUP BY; never put row-level conditions in HAVING."}
+        ]}},
+    {n:"02", id:"day2", t:"Sorting, Searching & Two Pointers", topics:"Binary search, sort-based patterns, converging pointers · multi-table joins, subqueries", py:"Binary search · two pointers", sql:"Subqueries · multi-join",
+      detail:{title:"Day 2 — Sorting, Searching, Two Pointers", sub:"The workhorse patterns behind half of all array problems.",
+        qs:[
+          {type:"py",name:"Binary Search + variants",d:"Find first/last occurrence, search rotated array. Master the <code>lo/hi/mid</code> invariant. O(log n)."},
+          {type:"py",name:"3Sum",d:"Sort, fix one element, two-pointer the rest, skip duplicates. O(n²) — the canonical follow-up to Two Sum."},
+          {type:"py",name:"Container With Most Water",d:"Two pointers from the ends, move the shorter wall inward. O(n) greedy."},
+          {type:"sql",name:"Second-Highest Salary",d:"Subquery with <code>MAX(... WHERE &lt; MAX)</code> or DISTINCT + OFFSET. Handle ties and NULLs."},
+          {type:"sql",name:"Customers Above Avg Order",d:"Correlated vs non-correlated subquery — compare readability and the likely query plan for your SQL engine."}
+        ]}},
+    {n:"03", id:"day3", t:"Sliding Window", topics:"Fixed & dynamic windows, substring problems · CTEs", py:"Sliding window · prefix sums", sql:"CTEs · readability",
+      detail:{title:"Day 3 — Sliding Window & CTEs", sub:"Turn O(n²) substring scans into O(n) single passes.",
+        qs:[
+          {type:"py",name:"Longest Substring No Repeat",d:"Dynamic window + last-seen map; jump the left pointer past the repeat. O(n)."},
+          {type:"py",name:"Max Sum Subarray Size K",d:"Fixed window: add the new element, drop the oldest. O(n), O(1)."},
+          {type:"py",name:"Min Window Substring",d:"Expand to satisfy, contract to minimize, track a need-counter. Hard but template-able."},
+          {type:"sql",name:"Refactor Nested Query to CTE",d:"<code>WITH</code> chains for readability; understand materialization differences across engines."},
+          {type:"sql",name:"Multi-step Aggregation",d:"Stack CTEs: clean → aggregate → rank, each step named and testable."}
+        ]}},
+    {n:"04", id:"day4", t:"Hash Maps (Advanced)", topics:"Grouping, prefix-sum maps, frequency signatures · window functions intro", py:"Prefix-sum maps · grouping", sql:"OVER() · PARTITION BY",
+      detail:{title:"Day 4 — Advanced Hash Maps & Window Funcs", sub:"The map-as-memory pattern + your first window functions.",
+        qs:[
+          {type:"py",name:"Group Anagrams",d:"Key by sorted tuple or char-count signature into a <code>defaultdict(list)</code>. Sorting is O(n·k log k); fixed alphabet counts can be O(n·k)."},
+          {type:"py",name:"Subarray Sum Equals K",d:"Prefix sum + count map: <code>seen[prefix-k]</code>. O(n) — the trick that surprises everyone."},
+          {type:"py",name:"Top-K Frequent",d:"Counter + heap of size K. O(n log K), better than full sort."},
+          {type:"sql",name:"Running Total",d:"<code>SUM(x) OVER (ORDER BY date)</code> — no self-join needed."},
+          {type:"sql",name:"Per-Group Average",d:"<code>AVG(x) OVER (PARTITION BY group)</code> keeps row detail alongside the aggregate."}
+        ]}},
+    {n:"05", id:"day5", t:"Recursion & Ranking", topics:"Recursion, backtracking basics · ROW_NUMBER / RANK / DENSE_RANK", py:"Recursion · backtracking", sql:"Ranking functions",
+      detail:{title:"Day 5 — Recursion & SQL Ranking", sub:"Think in base-case + recurse; rank rows three different ways.",
+        qs:[
+          {type:"py",name:"Permutations / Subsets",d:"Backtracking template: choose → recurse → un-choose. O(n·n!) / O(n·2ⁿ)."},
+          {type:"py",name:"Climbing Stairs (recursive→memo)",d:"Naive O(2ⁿ) → memoized O(n). The bridge into DP."},
+          {type:"py",name:"Flatten Nested List",d:"Recurse on lists, yield on ints — generator-based and clean."},
+          {type:"sql",name:"Nth Highest per Group",d:"<code>ROW_NUMBER() OVER (PARTITION BY g ORDER BY x DESC)</code>, filter rn=N."},
+          {type:"sql",name:"RANK vs DENSE_RANK",d:"Know exactly how each handles ties — a frequent gotcha question."}
+        ]}},
+    {n:"06", id:"day6", t:"Stacks, Queues & Intervals", topics:"Monotonic stacks, interval merging · running totals, moving averages", py:"Stacks · intervals", sql:"Moving averages · frames",
+      detail:{title:"Day 6 — Stacks, Queues & Intervals", sub:"Monotonic-stack tricks and the window-frame syntax most people fumble.",
+        qs:[
+          {type:"py",name:"Valid Parentheses",d:"Stack of expected closers. O(n) — the classic stack intro."},
+          {type:"py",name:"Merge Intervals",d:"Sort by start, merge overlaps in one pass. O(n log n)."},
+          {type:"py",name:"Daily Temperatures",d:"Monotonic decreasing stack of indices. O(n) next-greater-element pattern."},
+          {type:"sql",name:"7-Day Moving Average",d:"<code>AVG(x) OVER (ORDER BY d ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)</code>."},
+          {type:"sql",name:"Cumulative % of Total",d:"Running sum divided by a window total — combine two OVER clauses."}
+        ]}},
+    {n:"07", id:"day7", t:"Trees Basics", topics:"Traversals, BST properties, depth · self-joins, gaps-and-islands", py:"Tree traversals · BST", sql:"Self-joins · islands",
+      detail:{title:"Day 7 — Trees & Self-Joins", sub:"Recursive traversals + the SQL pattern interviewers love to spring.",
+        qs:[
+          {type:"py",name:"In/Pre/Post-order Traversal",d:"Recursive and iterative-with-stack. Know both. O(n)."},
+          {type:"py",name:"Validate BST",d:"Carry (min,max) bounds down the recursion — not just parent comparison."},
+          {type:"py",name:"Max Depth / Diameter",d:"Post-order returning height while tracking a global max. O(n)."},
+          {type:"sql",name:"Employee-Manager Self-Join",d:"Join a table to itself on <code>mgr_id = id</code>; mind NULL top-level managers."},
+          {type:"sql",name:"Gaps & Islands",d:"Group consecutive rows via <code>date - ROW_NUMBER()</code> — a senior favorite."}
+        ]}},
+    {n:"08", id:"day8", t:"Graphs Basics", topics:"BFS, DFS, connected components · retention queries", py:"BFS · DFS · components", sql:"Retention · returning users",
+      detail:{title:"Day 8 — Graphs & Retention", sub:"Traversal foundations and the metric every growth team asks about.",
+        qs:[
+          {type:"py",name:"Number of Islands",d:"DFS/BFS flood-fill over a grid. O(rows·cols)."},
+          {type:"py",name:"Clone Graph / Course Schedule",d:"Visited-map cloning; topological sort for cycle detection."},
+          {type:"py",name:"Shortest Path (unweighted)",d:"BFS layer-by-layer with a queue. O(V+E)."},
+          {type:"sql",name:"Day-N Retention",d:"Self-join signups to activity N days later; use the date arithmetic syntax for your SQL dialect, then divide by cohort size."},
+          {type:"sql",name:"Returning vs New Users",d:"Compare each user's first-active month to current month."}
+        ]}},
+    {n:"09", id:"day9", t:"Dynamic Programming", topics:"1D DP, memoization, tabulation · cohort analysis", py:"DP · memo & tabulation", sql:"Cohort tables",
+      detail:{title:"Day 9 — DP Basics & Cohorts", sub:"Define the state, write the recurrence, then optimize space.",
+        qs:[
+          {type:"py",name:"House Robber",d:"<code>dp[i]=max(dp[i-1], dp[i-2]+v)</code>, then roll to two variables. O(n)/O(1)."},
+          {type:"py",name:"Coin Change",d:"Unbounded knapsack; min coins for each amount. O(amount·coins)."},
+          {type:"py",name:"Longest Increasing Subsequence",d:"O(n²) DP, then the O(n log n) patience-sorting upgrade."},
+          {type:"sql",name:"Cohort Retention Grid",d:"Cohort month × periods-since with conditional aggregation."},
+          {type:"sql",name:"Cohort Revenue Curve",d:"Cumulative revenue per signup cohort over time."}
+        ]}},
+    {n:"10", id:"day10", t:"DP Continued & Greedy", topics:"2D DP, grids, greedy choices · funnel / conversion metrics", py:"2D DP · greedy", sql:"Funnels · conversion",
+      detail:{title:"Day 10 — 2D DP, Greedy & Funnels", sub:"Grid DP and the funnel queries product analysts live in.",
+        qs:[
+          {type:"py",name:"Edit Distance",d:"2D DP over two strings — insert/delete/replace. O(m·n)."},
+          {type:"py",name:"Unique Paths / Min Path Sum",d:"Grid DP; reduce to a rolling 1D array. O(m·n) time, O(n) space."},
+          {type:"py",name:"Jump Game",d:"Greedy farthest-reach scan. O(n) — proves greedy beats DP here."},
+          {type:"sql",name:"Multi-Step Funnel",d:"Conditional counts across stages; conversion = stage_k / stage_1."},
+          {type:"sql",name:"Drop-off Between Steps",d:"Window LAG across ordered funnel stages."}
+        ]}},
+    {n:"11", id:"day11", t:"Pandas / NumPy Manipulation", topics:"Vectorization, groupby, joins, reshaping · business metrics (DAU/MAU, churn)", py:"Pandas · NumPy vectorization", sql:"DAU/MAU · churn",
+      detail:{title:"Day 11 — Pandas/NumPy & Business Metrics", sub:"The DS-specific layer generic prep skips entirely.",
+        qs:[
+          {type:"py",name:"GroupBy-Agg-Merge",d:"Replicate SQL joins/aggregations in pandas; avoid <code>apply</code> when a vectorized op exists."},
+          {type:"py",name:"Vectorize a Loop",d:"Rewrite a Python loop as NumPy broadcasting — 10–100× speedups and why."},
+          {type:"py",name:"Rolling / Resample",d:"Time-series windows and downsampling with <code>.rolling()</code> / <code>.resample()</code>."},
+          {type:"sql",name:"DAU / MAU Ratio",d:"Daily active users divided by monthly or rolling-30-day active users, with both windows aligned before comparison."},
+          {type:"sql",name:"Monthly Churn Rate",d:"Users active last month but not this month, over last-month base."}
+        ]}},
+    {n:"12", id:"day12", t:"ML / DS Coding", topics:"Metrics from scratch, sampling, train/test logic · advanced window functions", py:"ML metrics · sampling", sql:"NTILE · advanced frames",
+      detail:{title:"Day 12 — ML Coding & Advanced SQL", sub:"Implement the math; don't just import it.",
+        qs:[
+          {type:"py",name:"Precision/Recall/F1 from scratch",d:"From a confusion matrix, no sklearn. Then ROC-AUC intuition."},
+          {type:"py",name:"K-Means / Gradient Descent step",d:"One update iteration by hand — tests genuine understanding."},
+          {type:"py",name:"Stratified Sampling",d:"Sample preserving class proportions; reproducible with a seed."},
+          {type:"sql",name:"Percentile Buckets with NTILE",d:"<code>NTILE(4) OVER (ORDER BY x)</code> for quartile segmentation."},
+          {type:"sql",name:"Median via Window",d:"Percentile / row-position trick — SQL has no built-in MEDIAN everywhere."}
+        ]}},
+    {n:"13", id:"day13", t:"Mixed Hard Set", topics:"System-design-flavored coding, scale trade-offs · complex analytical SQL", py:"Design-flavored coding", sql:"Complex analytics",
+      detail:{title:"Day 13 — Harder Mixed Set", sub:"Ambiguous prompts where scoping and trade-offs are the test.",
+        qs:[
+          {type:"py",name:"LRU Cache",d:"OrderedDict or hashmap+doubly-linked-list. O(1) get/put — the classic design-coding problem."},
+          {type:"py",name:"Top-K Streaming",d:"Heap + count map under a memory budget; mention count-min sketch for approximate."},
+          {type:"py",name:"Rate Limiter",d:"Sliding-window-log vs token-bucket — discuss the trade-offs."},
+          {type:"sql",name:"Sessionization",d:"Group events into sessions via a 30-min inactivity gap (LAG + cumulative sum)."},
+          {type:"sql",name:"Multi-CTE Attribution",d:"First/last-touch attribution across an event log."}
+        ]}},
+    {n:"14", id:"day14", t:"Full Mock & Review", topics:"Timed mixed problems, spaced review of weak spots · post-mortem checklist", py:"Timed mock · review", sql:"Timed mock · review",
+      detail:{title:"Day 14 — Full Mock & Review", sub:"Simulate the real thing, then patch the gaps.",
+        qs:[
+          {type:"py",name:"45-min Timed Set",d:"2 mediums + 1 hard under a clock. Narrate as you would live."},
+          {type:"py",name:"Re-solve Weak Days",d:"Redo the problems you stumbled on without looking at solutions."},
+          {type:"sql",name:"30-min SQL Gauntlet",d:"One window-function, one CTE, one retention question back-to-back."},
+          {type:"sql",name:"Explain-Your-Query Drill",d:"Talk through each query as if to an interviewer — clarity counts."},
+          {type:"py",name:"Behavioral + Complexity Recap",d:"Restate Big-O for every pattern; rehearse the trade-off one-liners."}
+        ]}}
+  ];
+
+  const grid = document.getElementById('grid');
+  days.forEach(d=>{
+    const card = document.createElement('div');
+    card.className='day reveal';
+    card.id=d.id;
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-expanded','false');
+    card.innerHTML = `
+      <div class="num">${d.n}<small>/ 14</small></div>
+      <h4>${d.t}</h4>
+      <div class="topics">${d.topics}</div>
+      <div class="meta"><span>🐍 ${d.py}</span><span>🗄️ ${d.sql}</span></div>
+      <span class="open">Expand day <span class="arrow">→</span></span>`;
+    const detail = document.createElement('div');
+    detail.className='detail';
+    detail.id=`${d.id}-detail`;
+    card.setAttribute('aria-controls',detail.id);
+    detail.innerHTML = `<div class="panel">
+        <h5>${d.detail.title}</h5>
+        <div class="sub">${d.detail.sub}</div>
+        ${d.detail.qs.map(q=>`
+          <div class="qblock">
+            <div class="qhead"><span class="tag ${q.type}">${q.type==='py'?'PYTHON':'SQL'}</span><b>${q.name}</b></div>
+            <p>${q.d}</p>
+          </div>`).join('')}
+      </div>`;
+    const toggleDay = ()=>{
+      const open = detail.classList.contains('show');
+      document.querySelectorAll('.detail.show').forEach(el=>el.classList.remove('show'));
+      document.querySelectorAll('.day[aria-expanded="true"]').forEach(el=>el.setAttribute('aria-expanded','false'));
+      if(!open){
+        detail.classList.add('show');
+        card.setAttribute('aria-expanded','true');
+        setTimeout(()=>detail.scrollIntoView({behavior:'smooth',block:'nearest'}),120);
+      }
+    };
+    card.addEventListener('click',toggleDay);
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter' || e.key===' '){
+        e.preventDefault();
+        toggleDay();
+      }
+    });
+    grid.appendChild(card);
+    grid.appendChild(detail);
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(Math.min(i,6)*60)+'ms'; io.observe(el); });
+</script>
+
+</body>
+</html>
