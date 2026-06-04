@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 11: Pandas, NumPy &amp; Business Metrics | Data Scientist Coding Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fdf8f0;--surface:#fffcf5;--surface2:#faf2e4;--snippet:#f7ead2;--border:#e8d9b8;--border2:#ddc99a;--accent:#c8922a;--accent2:#9c5c2e;--green:#5a8c2e;--text:#3f2a13;--muted:#8a6a3f;--mono:"DM Mono",monospace;--display:"Syne",system-ui,sans-serif;--maxw:1120px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.7;-webkit-font-smoothing:antialiased}body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(circle,rgba(180,140,60,.11) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 34px;position:relative;z-index:1}a{color:inherit;text-decoration:none}.brand{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding-top:42px}.brand-name{font-family:var(--display);font-weight:700;font-size:15px}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff8ea;font-family:var(--display);font-weight:800}.eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(200,146,42,.28);background:rgba(200,146,42,.04);padding:7px 16px;border-radius:4px;color:var(--accent);font-size:10px;letter-spacing:4px;text-transform:uppercase}.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(200,146,42,.45)}h1{font-family:var(--display);font-size:clamp(38px,7vw,78px);font-weight:800;line-height:.98;letter-spacing:-2.4px;margin-top:26px;color:#1a0e02}h1 em{font-style:normal;background:linear-gradient(100deg,var(--accent),var(--accent2),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lede{max-width:780px;margin-top:22px;font-size:15px;font-weight:500}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.stat{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:22px;padding:7px 15px;background:rgba(255,252,245,.58)}.section{display:flex;align-items:center;gap:16px;margin:42px 0 22px}.section h2{font-family:var(--display);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}.rule{height:1px;background:var(--border);flex:1}.footer{border-top:1px solid var(--border);margin-top:56px;padding:28px 0 52px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:11px}@media(max-width:820px){.wrap{padding:0 20px}.brand{justify-content:flex-start}.footer{display:block}.footer div+div{margin-top:10px}h1{letter-spacing:-1.2px}}
+
+  .topnav{display:flex;justify-content:space-between;gap:18px;margin-top:28px;font-size:12px;color:var(--muted)}.topnav a{border:1px solid var(--border);background:rgba(255,252,245,.68);border-radius:6px;padding:8px 12px}.day-hero{padding:44px 0 18px}.examples{display:grid;gap:22px}.example{background:rgba(255,252,245,.9);border:1px solid var(--border);border-radius:14px;overflow:hidden}.example-head{padding:18px 20px;border-bottom:1px solid var(--border);background:rgba(180,140,60,.025);display:flex;justify-content:space-between;gap:16px}.example h2{font-family:var(--display);font-size:22px;line-height:1.12;letter-spacing:-.5px;color:#1a0e02}.tag{font-family:var(--display);font-size:9px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;border:1px solid var(--border2);border-radius:3px;padding:5px 9px;color:var(--text);height:max-content}.example-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0}.explain{padding:20px;border-right:1px solid var(--border)}.label{font-family:var(--display);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.explain p{font-size:13px;margin-bottom:16px}.complexity{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:12px}.code-wrap{padding:20px;background:#fbf3e4}.code-title{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase}pre{background:var(--snippet);border:1px solid var(--border2);border-radius:10px;padding:16px;overflow:auto;color:var(--text);font-size:12px;line-height:1.65;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}code{font-family:var(--mono)}.pager{display:flex;justify-content:space-between;gap:18px;margin:34px 0}.pager a{flex:1;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:16px}.pager a:last-child{text-align:right}.pager span{display:block;font-family:var(--display);font-weight:800;color:#1a0e02}@media(max-width:900px){.example-body{grid-template-columns:1fr}.explain{border-right:none;border-bottom:1px solid var(--border)}.topnav,.pager{display:block}.topnav a,.pager a{display:block;margin-bottom:10px}.pager a:last-child{text-align:left}}
+
+/* Day pages use one text color; visual hierarchy comes from spacing, borders, and backgrounds. */
+h1,h1 em,.example h2,.pager span,.label,.code-title,.topnav,.footer,.stat,.eyebrow{color:var(--text);-webkit-text-fill-color:var(--text);background-image:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav"><a href="../">← All days</a><a href="#examples">Jump to examples</a></nav>
+  <div class="brand"><div class="brand-name">Lokesh Venkatesh</div><div class="avatar">LV</div></div>
+  <header class="day-hero">
+    <div class="eyebrow">Day 11 · Coding Round</div>
+    <h1>Pandas, NumPy &amp; Business Metrics<br><em>Explained Solutions</em></h1>
+    <p class="lede">The data scientist layer: manipulate data frames cleanly and mirror the logic in SQL.</p>
+    <div class="stats"><span class="stat">5 Python solutions</span><span class="stat">3 SQL solutions</span><span class="stat">Vectorization, groupby, joins, rolling windows, churn</span></div>
+  </header>
+  <div class="section" id="examples"><h2>Examples</h2><div class="rule"></div></div>
+  <main class="examples">
+    <article class="example">
+      <div class="example-head"><h2>1. Pandas groupby aggregation</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Named aggregations produce clean column names.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because it uses vectorized dataframe or array operations instead of row-by-row Python loops. That is the production-friendly pattern for data science work: clearer intent and much better performance.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>def revenue_by_country(orders, users):
+    df = orders.merge(users[[&quot;user_id&quot;, &quot;country&quot;]], on=&quot;user_id&quot;, how=&quot;left&quot;)
+    return (
+        df.groupby(&quot;country&quot;, as_index=False)
+          .agg(revenue=(&quot;amount&quot;, &quot;sum&quot;), orders=(&quot;order_id&quot;, &quot;nunique&quot;))
+    )</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>2. Vectorized conditional column</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Avoid row-wise apply for simple conditions.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because it uses vectorized dataframe or array operations instead of row-by-row Python loops. That is the production-friendly pattern for data science work: clearer intent and much better performance.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>import numpy as np
+
+def add_value_segment(df):
+    df = df.copy()
+    df[&quot;segment&quot;] = np.where(df[&quot;revenue&quot;] &gt;= 1000, &quot;high&quot;, &quot;standard&quot;)
+    return df</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>3. Rolling mean in pandas</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Sort before rolling time-series metrics.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because it uses vectorized dataframe or array operations instead of row-by-row Python loops. That is the production-friendly pattern for data science work: clearer intent and much better performance.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: usually O(n log n) because of sorting. Space: O(n) or O(1), depending on output and language sort behavior.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>def add_rolling_revenue(daily):
+    daily = daily.sort_values(&quot;day&quot;).copy()
+    daily[&quot;revenue_7d_avg&quot;] = daily[&quot;revenue&quot;].rolling(7, min_periods=1).mean()
+    return daily</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>4. Pivot cohort table</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Turn long retention rows into a cohort grid.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview solution because it uses the simplest pattern that reaches the target complexity, keeps edge cases visible, and leaves you with code you can explain line by line.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>def retention_pivot(retention):
+    return retention.pivot_table(
+        index=&quot;cohort_month&quot;,
+        columns=&quot;period&quot;,
+        values=&quot;retention&quot;,
+        aggfunc=&quot;mean&quot;
+    )</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>5. NumPy standardization</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Fit statistics on train data, then transform.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because it uses vectorized dataframe or array operations instead of row-by-row Python loops. That is the production-friendly pattern for data science work: clearer intent and much better performance.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>import numpy as np
+
+def standardize_train_test(x_train, x_test):
+    mean = x_train.mean(axis=0)
+    std = x_train.std(axis=0)
+    std = np.where(std == 0, 1, std)
+    return (x_train - mean) / std, (x_test - mean) / std</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>6. DAU to MAU ratio</h2><span class="tag">SQL</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Align daily users with a rolling 30-day active base.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview solution because it computes the metric at the correct grain, names the intermediate logic clearly, and handles edge cases such as nulls or zero denominators where they matter.</p>
+          <div class="complexity"><strong>Complexity:</strong> Cost depends on table size, indexes, and partition cardinality; the important interview point is the row grain and join/window order.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>SQL</span></div>
+          <pre><code>WITH days AS (
+  SELECT DISTINCT activity_date AS day FROM activity
+)
+SELECT d.day,
+       COUNT(DISTINCT CASE WHEN a.activity_date = d.day THEN a.user_id END) AS dau,
+       COUNT(DISTINCT a.user_id) AS mau_30d,
+       COUNT(DISTINCT CASE WHEN a.activity_date = d.day THEN a.user_id END)::float /
+       NULLIF(COUNT(DISTINCT a.user_id), 0) AS dau_mau
+FROM days d
+JOIN activity a
+  ON a.activity_date BETWEEN d.day - INTERVAL '29 day' AND d.day
+GROUP BY d.day;</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>7. Monthly churn</h2><span class="tag">SQL</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Users active last month but absent this month.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best approach because the window function ranks rows without collapsing detail. You can filter after ranking, handle ties intentionally, and avoid brittle nested subqueries that are harder to explain under pressure.</p>
+          <div class="complexity"><strong>Complexity:</strong> Cost depends on table size, indexes, and partition cardinality; the important interview point is the row grain and join/window order.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>SQL</span></div>
+          <pre><code>WITH monthly AS (
+  SELECT DISTINCT user_id, DATE_TRUNC('month', activity_date) AS month
+  FROM activity
+)
+SELECT last.month + INTERVAL '1 month' AS month,
+       COUNT(DISTINCT last.user_id) AS previous_active,
+       COUNT(DISTINCT CASE WHEN curr.user_id IS NULL THEN last.user_id END) AS churned
+FROM monthly last
+LEFT JOIN monthly curr
+  ON curr.user_id = last.user_id
+ AND curr.month = last.month + INTERVAL '1 month'
+GROUP BY 1;</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>8. ARPU by month</h2><span class="tag">SQL</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Revenue divided by active users at the same grain.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best approach because the window function ranks rows without collapsing detail. You can filter after ranking, handle ties intentionally, and avoid brittle nested subqueries that are harder to explain under pressure.</p>
+          <div class="complexity"><strong>Complexity:</strong> Cost depends on table size, indexes, and partition cardinality; the important interview point is the row grain and join/window order.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>SQL</span></div>
+          <pre><code>WITH monthly_revenue AS (
+  SELECT DATE_TRUNC('month', order_date) AS month, SUM(amount) AS revenue
+  FROM orders
+  GROUP BY 1
+),
+monthly_active AS (
+  SELECT DATE_TRUNC('month', activity_date) AS month, COUNT(DISTINCT user_id) AS active_users
+  FROM activity
+  GROUP BY 1
+)
+SELECT r.month,
+       r.revenue / NULLIF(a.active_users, 0) AS arpu
+FROM monthly_revenue r
+JOIN monthly_active a USING (month);</code></pre>
+        </div>
+      </div>
+    </article>
+  </main>
+  <nav class="pager">
+    <a href="../day-10/">← Previous<span>Day 10: 2D DP, Greedy &amp; Funnels</span></a>
+    <a href="../day-12/">Next →<span>Day 12: ML Coding &amp; Advanced SQL</span></a>
+  </nav>
+  <footer class="footer"><div>#DataScience &nbsp;#Python &nbsp;#SQL &nbsp;#InterviewPrep</div><div>Day 11 · Pandas, NumPy &amp; Business Metrics</div></footer>
+</div></body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 14: Mock Interview &amp; Review | Data Scientist Coding Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fdf8f0;--surface:#fffcf5;--surface2:#faf2e4;--snippet:#f7ead2;--border:#e8d9b8;--border2:#ddc99a;--accent:#c8922a;--accent2:#9c5c2e;--green:#5a8c2e;--text:#3f2a13;--muted:#8a6a3f;--mono:"DM Mono",monospace;--display:"Syne",system-ui,sans-serif;--maxw:1120px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.7;-webkit-font-smoothing:antialiased}body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(circle,rgba(180,140,60,.11) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 34px;position:relative;z-index:1}a{color:inherit;text-decoration:none}.brand{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding-top:42px}.brand-name{font-family:var(--display);font-weight:700;font-size:15px}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff8ea;font-family:var(--display);font-weight:800}.eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(200,146,42,.28);background:rgba(200,146,42,.04);padding:7px 16px;border-radius:4px;color:var(--accent);font-size:10px;letter-spacing:4px;text-transform:uppercase}.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(200,146,42,.45)}h1{font-family:var(--display);font-size:clamp(38px,7vw,78px);font-weight:800;line-height:.98;letter-spacing:-2.4px;margin-top:26px;color:#1a0e02}h1 em{font-style:normal;background:linear-gradient(100deg,var(--accent),var(--accent2),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lede{max-width:780px;margin-top:22px;font-size:15px;font-weight:500}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.stat{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:22px;padding:7px 15px;background:rgba(255,252,245,.58)}.section{display:flex;align-items:center;gap:16px;margin:42px 0 22px}.section h2{font-family:var(--display);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}.rule{height:1px;background:var(--border);flex:1}.footer{border-top:1px solid var(--border);margin-top:56px;padding:28px 0 52px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:11px}@media(max-width:820px){.wrap{padding:0 20px}.brand{justify-content:flex-start}.footer{display:block}.footer div+div{margin-top:10px}h1{letter-spacing:-1.2px}}
+
+  .topnav{display:flex;justify-content:space-between;gap:18px;margin-top:28px;font-size:12px;color:var(--muted)}.topnav a{border:1px solid var(--border);background:rgba(255,252,245,.68);border-radius:6px;padding:8px 12px}.day-hero{padding:44px 0 18px}.examples{display:grid;gap:22px}.example{background:rgba(255,252,245,.9);border:1px solid var(--border);border-radius:14px;overflow:hidden}.example-head{padding:18px 20px;border-bottom:1px solid var(--border);background:rgba(180,140,60,.025);display:flex;justify-content:space-between;gap:16px}.example h2{font-family:var(--display);font-size:22px;line-height:1.12;letter-spacing:-.5px;color:#1a0e02}.tag{font-family:var(--display);font-size:9px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;border:1px solid var(--border2);border-radius:3px;padding:5px 9px;color:var(--text);height:max-content}.example-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0}.explain{padding:20px;border-right:1px solid var(--border)}.label{font-family:var(--display);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.explain p{font-size:13px;margin-bottom:16px}.complexity{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:12px}.code-wrap{padding:20px;background:#fbf3e4}.code-title{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase}pre{background:var(--snippet);border:1px solid var(--border2);border-radius:10px;padding:16px;overflow:auto;color:var(--text);font-size:12px;line-height:1.65;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}code{font-family:var(--mono)}.pager{display:flex;justify-content:space-between;gap:18px;margin:34px 0}.pager a{flex:1;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:16px}.pager a:last-child{text-align:right}.pager span{display:block;font-family:var(--display);font-weight:800;color:#1a0e02}@media(max-width:900px){.example-body{grid-template-columns:1fr}.explain{border-right:none;border-bottom:1px solid var(--border)}.topnav,.pager{display:block}.topnav a,.pager a{display:block;margin-bottom:10px}.pager a:last-child{text-align:left}}
+
+/* Day pages use one text color; visual hierarchy comes from spacing, borders, and backgrounds. */
+h1,h1 em,.example h2,.pager span,.label,.code-title,.topnav,.footer,.stat,.eyebrow{color:var(--text);-webkit-text-fill-color:var(--text);background-image:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav"><a href="../">← All days</a><a href="#examples">Jump to examples</a></nav>
+  <div class="brand"><div class="brand-name">Lokesh Venkatesh</div><div class="avatar">LV</div></div>
+  <header class="day-hero">
+    <div class="eyebrow">Day 14 · Coding Round</div>
+    <h1>Mock Interview &amp; Review<br><em>Explained Solutions</em></h1>
+    <p class="lede">Finish with reusable interview templates and compact examples you can recall under pressure.</p>
+    <div class="stats"><span class="stat">5 Python solutions</span><span class="stat">3 SQL solutions</span><span class="stat">Timed review, reusable templates, final SQL drills</span></div>
+  </header>
+  <div class="section" id="examples"><h2>Examples</h2><div class="rule"></div></div>
+  <main class="examples">
+    <article class="example">
+      <div class="example-head"><h2>1. Frequency template</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>A reusable skeleton for counting problems.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because the hash table stores exactly the information needed for constant-time lookup. It trades a small amount of memory for a clean O(n) pass and avoids repeated scans.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>from collections import Counter
+
+def frequency_table(values):
+    counts = Counter(values)
+    return [{&quot;value&quot;: value, &quot;count&quot;: count} for value, count in counts.most_common()]</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>2. Two-pointer template</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Works after sorting when the target relation is monotonic.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview solution because it uses the simplest pattern that reaches the target complexity, keeps edge cases visible, and leaves you with code you can explain line by line.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: usually O(n log n) because of sorting. Space: O(n) or O(1), depending on output and language sort behavior.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>def pair_exists_sorted(nums, target):
+    l, r = 0, len(nums) - 1
+    while l &lt; r:
+        s = nums[l] + nums[r]
+        if s == target:
+            return True
+        if s &lt; target:
+            l += 1
+        else:
+            r -= 1
+    return False</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>3. BFS template</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Shortest unweighted traversal in one reusable pattern.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because it visits each node or cell once and records visited state explicitly. That gives predictable O(V + E) or O(rows * cols) behavior and avoids infinite loops in cyclic structures.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(V + E) for graph inputs, or O(rows * cols) for grids. Space: O(V) for visited state.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>from collections import deque
+
+def bfs_order(graph, start):
+    q = deque([start])
+    seen = {start}
+    order = []
+    while q:
+        node = q.popleft()
+        order.append(node)
+        for nxt in graph.get(node, []):
+            if nxt not in seen:
+                seen.add(nxt)
+                q.append(nxt)
+    return order</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>4. Memoization template</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Use when recursive states repeat.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview solution because it uses the simplest pattern that reaches the target complexity, keeps edge cases visible, and leaves you with code you can explain line by line.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>from functools import lru_cache
+
+def count_ways(n):
+    @lru_cache(None)
+    def dp(i):
+        if i == 0:
+            return 1
+        if i &lt; 0:
+            return 0
+        return dp(i - 1) + dp(i - 2)
+    return dp(n)</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>5. Pandas metric check</h2><span class="tag">Python</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>A quick sanity table for interview case data.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best solution because it uses vectorized dataframe or array operations instead of row-by-row Python loops. That is the production-friendly pattern for data science work: clearer intent and much better performance.</p>
+          <div class="complexity"><strong>Complexity:</strong> Time: O(n) for a single pass unless the snippet sorts or builds a larger DP table. Space: O(n) when it stores counts, state, or output.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>Python</span></div>
+          <pre><code>def metric_snapshot(df):
+    return {
+        &quot;rows&quot;: len(df),
+        &quot;users&quot;: df[&quot;user_id&quot;].nunique(),
+        &quot;revenue&quot;: df[&quot;amount&quot;].sum(),
+        &quot;aov&quot;: df[&quot;amount&quot;].mean()
+    }</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>6. Window drill</h2><span class="tag">SQL</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Rank, previous value, and running total in one query.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview solution because it computes the metric at the correct grain, names the intermediate logic clearly, and handles edge cases such as nulls or zero denominators where they matter.</p>
+          <div class="complexity"><strong>Complexity:</strong> Cost depends on table size, indexes, and partition cardinality; the important interview point is the row grain and join/window order.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>SQL</span></div>
+          <pre><code>SELECT user_id,
+       order_date,
+       amount,
+       ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY order_date) AS order_number,
+       LAG(amount) OVER (PARTITION BY user_id ORDER BY order_date) AS previous_amount,
+       SUM(amount) OVER (PARTITION BY user_id ORDER BY order_date) AS running_user_revenue
+FROM orders;</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>7. Retention drill</h2><span class="tag">SQL</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Keep cohort, numerator, and denominator together.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview shape because it keeps the cohort denominator visible, joins activity at the right grain, and makes the retention window explicit. That prevents the most common analytics bug: counting active users correctly but dividing by the wrong base.</p>
+          <div class="complexity"><strong>Complexity:</strong> Cost depends on table size, indexes, and partition cardinality; the important interview point is the row grain and join/window order.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>SQL</span></div>
+          <pre><code>SELECT s.signup_date,
+       COUNT(DISTINCT s.user_id) AS cohort_size,
+       COUNT(DISTINCT a.user_id) AS retained_users,
+       COUNT(DISTINCT a.user_id)::float / NULLIF(COUNT(DISTINCT s.user_id), 0) AS retention
+FROM signups s
+LEFT JOIN activity a
+  ON a.user_id = s.user_id
+ AND a.activity_date BETWEEN s.signup_date + INTERVAL '1 day'
+                         AND s.signup_date + INTERVAL '7 day'
+GROUP BY s.signup_date;</code></pre>
+        </div>
+      </div>
+    </article><article class="example">
+      <div class="example-head"><h2>8. Final metric QA</h2><span class="tag">SQL</span></div>
+      <div class="example-body">
+        <div class="explain">
+          <div class="label">What It Solves</div>
+          <p>Compare row counts, users, and value totals before trusting a result.</p>
+          <div class="label">Why This Is Best</div>
+          <p>This is the best interview solution because it computes the metric at the correct grain, names the intermediate logic clearly, and handles edge cases such as nulls or zero denominators where they matter.</p>
+          <div class="complexity"><strong>Complexity:</strong> Cost depends on table size, indexes, and partition cardinality; the important interview point is the row grain and join/window order.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-title"><span>Example Solution</span><span>SQL</span></div>
+          <pre><code>SELECT COUNT(*) AS rows,
+       COUNT(DISTINCT user_id) AS users,
+       SUM(amount) AS total_amount,
+       MIN(order_date) AS first_order,
+       MAX(order_date) AS last_order
+FROM orders
+WHERE status = 'paid';</code></pre>
+        </div>
+      </div>
+    </article>
+  </main>
+  <nav class="pager">
+    <a href="../day-13/">← Previous<span>Day 13: Mixed Hard Set</span></a>
+    <a href="../">Finish →<span>Back to all days</span></a>
+  </nav>
+  <footer class="footer"><div>#DataScience &nbsp;#Python &nbsp;#SQL &nbsp;#InterviewPrep</div><div>Day 14 · Mock Interview &amp; Review</div></footer>
+</div></body>
+</html>
